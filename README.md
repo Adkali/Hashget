@@ -31,4 +31,4 @@ as you can see from above, the hash seems to be public for now only in 1 site - 
 ![3](https://user-images.githubusercontent.com/90532971/198870319-31e1444a-5bd6-4860-a552-948df0469595.png)
 
 # Updates
-For now, supported hash are MD5, SHA1, SHA256, SHA512.<br>Hope you will find this tool useful and a shortime maker.<br>if you have any problems or might going some wrong request, please make an issue.
+For now, supported hash are MD5, SHA1, SHA256, SHA512.Hope you will find this tool useful and a shortime maker. if you have any problems or might going some wrong request, please make an issue. make sure you install re req file before runing the code.
