@@ -26,7 +26,7 @@ Hashget is very easy to use.<br>using the '-t' (type) argument with '-ha' (hash 
 Type: MD5 -- > Hash: dc92364159da3086106f6a0c9ee68d06 -- > 'SecurePassword123'
 
 ![2](https://user-images.githubusercontent.com/90532971/198870035-49749cc6-07fd-45b0-840d-2b08573d3542.png)<br>
-as you can see from above, the hash seems to be public for now only in 1 site - MD5.GROMWEB. using the code would give you the results much more faster instead of uing the brwoser to llok for the hashes decryption. Now, make a use of the '-p-' flag with "set", would give you the option of sending request through orixy server. making the code run again on same hash with '-p', results in pulling the hash ( if it does in the public database :<br>
+as you can see from above, the hash seems to be public for now only in 1 site - MD5.GROMWEB. using the code would give you the results much more faster instead of uing the brwoser to llok for the hashes decryption. Now, make a use of the '-p-' flag with "set", would give you the option of sending request through proxy server only if you have anonsurf on you machine [ kali ]. making the code run again on same hash with '-p', results in pulling the hash ( if it does in the public database ) :<br>
 
 ![3](https://user-images.githubusercontent.com/90532971/198870319-31e1444a-5bd6-4860-a552-948df0469595.png)
 
