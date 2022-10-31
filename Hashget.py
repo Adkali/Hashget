@@ -427,3 +427,5 @@ with open("cmd5.txt", "r") as LabelAnswer:
 
     except Exception as e:
         print(e)
+    except IndexError:
+        ErrorMessage8()
