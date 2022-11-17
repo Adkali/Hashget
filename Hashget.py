@@ -1,3 +1,4 @@
+import binary as binary
 import requests
 from bs4 import BeautifulSoup
 import time
@@ -42,13 +43,14 @@ def Parserr(err):
 parser = argparse.ArgumentParser(description="Hash decrypt using scrapping source.")
 parser.error = Parserr
 parser.add_argument('-t', '-type', type=str, required=True, help='Hash type, for example sha1, md5, sha256, etc.')
-parser.add_argument('-ha', '-hashit', type=str, required=True, help='Hash to decrypt')
-parser.add_argument('-p', '-proxy', type=str, required=False, help="Use proxy when sending request")
+parser.add_argument('-ha', '-hashit', type=str, required=True, help='Hash itself to decrypt.')
+parser.add_argument('-p', '-proxy', type=str, required=False, help="Use proxy when sending request.")
+parser.add_argument('-b', '-base64', type=str, required=False, help="use it for Base64 decoding.")
 args = parser.parse_args()
 
 def Operators():
     global hash_type, hash_itself
-
+b64 = args.b
 hash_itself = args.ha
 hash_type = args.t
 pro = args.p
@@ -97,15 +99,19 @@ URL5 = "https://md5decrypt.net/en/"
 URL6 = "https://md5decrypt.net/en/Sha1/"
 URL7 = "https://md5decrypt.net/en/Sha256/"
 URL8 = "https://cmd5.org/default.aspx/"
+URL9 = "https://sha1.web-max.ca/index.php"
 print("Pulling Out Hash Decryption, Please Wait.....\n")
 time.sleep(3)
 
-# ------- URL NUMBER ONE -------
+# ------- BASE64 DECODE -------
+# SOON!
 
+# ------- URL NUMBER ONE -------
   # ------- MAKE A MANUAL ERROR -------
 def ErrorMessage():
     print(f"[-] HashToolKit: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
 
+global links
 try:
     r = requests.get(URL, headers=Headers)
     if r.status_code == 200:
@@ -121,16 +127,13 @@ except Exception as e:
     print(e)
 
 # ------ CONTINUE CODE -------
+
 try:
     for split in links:
         L = split.get("href")
         if "/generate-hash/?text=" in L:
             L2 = L.split("/generate-hash/?text=")
 
-except Exception as e:
-    print(e)
-
-try:
     if not L2:
         ErrorMessage()
     else:
@@ -138,6 +141,8 @@ try:
 
 except NameError:
     ErrorMessage()
+except Exception as e:
+    print(e)
 
 # ------- MAKE A MANUAL ERROR  -------
 def ErrorMessage2():
@@ -225,6 +230,7 @@ if hash_type == "sha1":
     try:
         for i in List3[2]:
             print(f'[+]Decrypted Hash {Red}[SHA1.GromWeb]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{i}"{Normal} [[ #H#A#S#H# ]]\n')
+
     except IndexError:
         ErrorMessage4()
 
@@ -234,15 +240,16 @@ def ErrorMessage5():
     os.system('rm -r md5data.txt')
 
  # ------- CONTINUE URL NUMBER 5 [md5decrypt/MD5] -------
+recaph = "HFZXdndg5GLD85M3tSS11DSh94GxBlcT8zBQUrMjdnDz0aF3Y0EX4NFC56RDNudGlye2I8FhMUZxMYelNRIVBtIhJsOipXcB9YQ1Vqd1ROWE18VBA_TGAuLV0yYhMUYhMUGztFVDBVbjADHSg6UGIPLlZncEBGa29dNltGY3xiRXU_BntLTA9zbx94GxBidg"
 a = "curl -i -k -s -X POST -d "
-b = f"'hash={args.ha}&decrypt=Decrypter'"
+b = f"'hash={args.ha}&recaptchaResponse={recaph}&button_value=Decrypt'"
 c = " -H 'User-Agent:Mozilla/5.0 (Windows NT 10.0; WOW64; rv:39.0) Gecko/20100101 Firefox/39.0'"
 d = f" {URL5}"
 e = f" | grep {args.ha}"
 command = a + b + c + d + e
 if hash_type == "md5":
     a = os.popen(f'{command} > md5data.txt')
-    time.sleep(2)
+    time.sleep(5)
 
     Result = []
     try:
@@ -256,8 +263,7 @@ if hash_type == "md5":
         print(e)
     except IndexError:
         ErrorMessage5()
-    except NameError:
-        ErrorMessage5()
+
     try:
         if "<b>" in spl[1]:
             spl2 = spl[1].split("/b>")
@@ -292,11 +298,12 @@ h = " -H 'User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHT
 i = f" {URL6}"
 j = f" | grep {args.ha}"
 command = f + g + h + i + j
+
+Result2 = []
 if hash_type == "sha1":
     a = os.popen(f'{command} > sha1data.txt')
-    time.sleep(2)
+    time.sleep(20)
 
-    Result2 = []
     try:
         with open('sha1data.txt', 'r') as data2:
             dataread2 = data2.readlines()
@@ -304,30 +311,19 @@ if hash_type == "sha1":
                 if f"{args.ha}" in i:
                     spl2 = i.split(f"{args.ha}")
 
+                if "<b>" in spl2[1]:
+                    spl3 = spl2[1].split("/b>")
+                    Result2.append(spl3[0])
+
+            for i in Result2:
+                try:
+                    i = i.strip().split(": <b>")
+                    print(f'[+]Decrypted Hash {Red}[MD5DECRYPT-Sha1]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{i[1].replace("<","")}"{Normal} [[ #H#A#S#H# ]]\n')
+                    time.sleep(1.5)
+                    os.system('rm -r sha1data.txt')
+                except IndexError:
+                    ErrorMessage6()
     except IndexError:
-        ErrorMessage6()
-    except NameError:
-        ErrorMessage6()
-
-    try:
-        if "<b>" in spl2[1]:
-            spl3 = spl2[1].split("/b>")
-            Result2.append(spl3[0])
-
-    except NameError:
-        ErrorMessage6()
-    except IndexError:
-        ErrorMessage6()
-
-    try:
-        for i in Result2:
-            i = i.strip().split(": <b>")
-
-        print(f'[+]Decrypted Hash {Red}[MD5DECRYPT-Sha1]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{i[1].replace("<","")}"{Normal} [[ #H#A#S#H# ]]\n')
-        os.system('rm -r sha1data.txt')
-    except IndexError:
-        ErrorMessage6()
-    except NameError:
         ErrorMessage6()
 
 # ------- MAKE MANUAL ERROR -------
@@ -425,7 +421,40 @@ with open("cmd5.txt", "r") as LabelAnswer:
                 os.popen('rm -r cmd5.txt')
                 subprocess.Popen("anonsurf stop {0} >/dev/null 2>&1 &", shell=True)
 
-    except Exception as e:
-        print(e)
     except IndexError:
         ErrorMessage8()
+
+# ------- MAKE MANUAL ERROR -------
+def ErrorMessage9():
+    print(f"[-]SHA1.WEB-MAX-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
+# ------- CONTINUE TO URL NUMBER 9 -------
+ # ------- ADD TO LIST -------
+Headers2 = {
+    "User-Agent": "Mozilla/5.0 (Android; Mobile; rv:40.0) Gecko/40.0 Firefox/40.0",
+    "Host": "sha1.web-max.ca",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.5",
+    "Origin": "https://sha1.web-max.ca",
+    "Referer": "https://sha1.web-max.ca/index.php",
+    "Connection": "close",
+    "--data-binary": f"string={hash_itself}&key=13fd&check_code=7985&hidden_code=%0C6%01l%06%3C%0Di&decode=sha1+hash+decode",
+}
+List5 = []
+curl = f"curl -i -k -s -X 'POST' https://sha1.web-max.ca/index.php -H 'User-Agent:{Headers2['User-Agent']}' -H 'Host:{Headers2['Host']}' -H 'Accept:{Headers2['Accept']}' -H 'Accept-Language:{Headers2['Accept-Language']}' -H 'Origin:{Headers2['Origin']}' -H 'Referer:{Headers2['Referer']}' --data-binary '{Headers2['--data-binary']}'"
+if hash_type == "sha1":
+    os.popen(f'{curl} > curl.txt')
+    time.sleep(20)
+    with open('curl.txt', 'r') as curl:
+        for i in curl:
+            if 'string' in i:
+                s = i.strip().split("https://")
+        for n in s:
+            if "Re-encode" in n:
+                try:
+                    results = (n.split("tools.web-max.ca/encode_decode.php?string=")[1].split('">')[0])
+                    print(f'[+]Decrypted Hash {Red}[SHA.WEB-MAX]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results}{Normal} [[ #H#A#S#H# ]]\n')
+                    os.system('rm -r curl.txt')
+                except IndexError:
+                    ErrorMessage9()
+                except NameError:
+                    ErrorMessage9()
