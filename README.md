@@ -33,7 +33,8 @@ as you can see from above, the hash seems to be public for now only in 1 site - 
 # Updates
 For now, supported hash are MD5, SHA1, SHA256, SHA512.Hope you will find this tool useful and a shortime maker. if you have any problems or might going some wrong request, please make an issue. make sure you install re req file before runing the code.
 # Notes
-1/11 - for some having problems while run the code, and gets error like 'requests.exceptions.InvalidURL: Failed to parse', make sure python is updated or use the following commands. if you having another problems, please let me know.
-
+1/11 - for some having problems while run the code, and gets error like 'requests.exceptions.InvalidURL: Failed to parse', make sure python is updated or use the following commands. if you having another problems, please let me know.<br>
 1. apt update -y
 2. pip3 install --upgrade urllib3
+<br>
+17/11 - recap result in nothing from some sites, which gives zero reuslts back. i will trying to make it work soon i believe. current site: md5decrypt.
