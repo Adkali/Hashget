@@ -377,6 +377,7 @@ if hash_type == "sha256":
 # ------- MAKE MANUAL ERROR -------
 def ErrorMessage8():
     print(f"[-]CMD5: {Green}{args.ha}{Normal} -- > Authentication failed, try using '-p' flag.\n")
+    os.system('rm -r cmd5.txt')
  # ------- CONTINUE TO URL NUMBER 8 -------
 List4 = []
 Headers = {"User-Agent:": "Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0",
