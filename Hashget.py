@@ -523,7 +523,7 @@ curl = f"curl -i -k -s -X 'POST' https://md5.web-max.ca/index.php -H 'User-Agent
 if hash_type == "md5":
     os.popen(f'{curl} > curl5.txt')
     time.sleep(20)
-    with open('curl.txt', 'r') as curl:
+    with open('curl5.txt', 'r') as curl:
         for i in curl:
             if 'string' in i:
                 s = i.strip().split("https://")
