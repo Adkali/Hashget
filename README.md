@@ -1,5 +1,5 @@
 # Hashget
-
+<img src="https://img.shields.io/badge/Maintained%3F-Yes-96c40f"> <img src="https://img.shields.io/badge/Developed%20on-kali%20linux-blueviolet">
 <h4>Pull Hashes Decryption From Online Source Using Python.</h4>Hashget takes hash as argument using '-ha' flag and '-t' as type of hash, and pulling the decryption from the given URL's. Hashget uses as a hash puller instead of using wordlists for the given hash to find a match when does. Online service keeps hashes in some Rainbow-Table and when hash is givven, the results come more faster, and millions of hashes are over there, so i made this tool for my own convenience when using them at once.
 
 # Usage
