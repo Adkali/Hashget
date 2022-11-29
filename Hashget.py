@@ -101,6 +101,7 @@ URL7 = "https://md5decrypt.net/en/Sha256/"
 URL8 = "https://cmd5.org/default.aspx/"
 URL9 = "https://sha1.web-max.ca/index.php"
 URL10 = "https://md5.web-max.ca/index.php"
+URL11 = "https://www.md5online.it/index.lm?key_decript="
 print("Pulling Out Hash Decryption, Please Wait.....\n")
 time.sleep(3)
 
@@ -401,7 +402,7 @@ if pro == "set":
         print("Install 'kali-anonsurf' please [ sudo apt-get install kali-anonsurf -y ]")
 time.sleep(3.5)
 os.popen(f'{command} > cmd5.txt')
-time.sleep(4)
+time.sleep(1)
 with open("cmd5.txt", "r") as LabelAnswer:
     try:
         for i in LabelAnswer.readlines():
@@ -419,7 +420,7 @@ with open("cmd5.txt", "r") as LabelAnswer:
             if "<b>" in b[0]:
                 ErrorMessage8()
             else:
-                print(f'[+]Decrypted Hash {Red}[CMD5]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{b[0]}"{Normal} [[ #H#A#S#H# ]]\n')
+                # print(f'[+]Decrypted Hash {Red}[CMD5]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{b[0]}"{Normal} [[ #H#A#S#H# ]]\n')
                 os.popen('rm -r cmd5.txt')
                 subprocess.Popen("anonsurf stop {0} >/dev/null 2>&1 &", shell=True)
 
@@ -464,6 +465,7 @@ if hash_type == "sha1":
 # ------- MAKE MANUAL ERROR -------
 def ErrorMessage10():
     print(f"[-]PSRECOVERY: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
+    os.system('rm -r recovery.txt')
 # ------- CONTINUE TO URL NUMBER 10 -------
 
 Headers3 = {
@@ -506,11 +508,12 @@ with open('recovery.txt', 'r') as rc:
 # ------- MAKE MANUAL ERROR -------
 def ErrorMessage11():
     print(f"[-]MD5.WEB-MAX-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
+    os.system('rm -r curl5.txt')
 # ------- CONTINUE TO URL NUMBER 9 -------
  # ------- ADD TO LIST -------
 Headers2 = {
     "User-Agent": "Mozilla/5.0 (Android; Mobile; rv:40.0) Gecko/40.0 Firefox/40.0",
-    "Host": "md5.web-max.ca",
+    "Host": "sha1.web-max.ca",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.5",
     "Origin": "https://md5.web-max.ca",
@@ -518,7 +521,7 @@ Headers2 = {
     "Connection": "close",
     "--data-binary": f"string={hash_itself}&key=13fd&check_code=7567&hidden_code=%0Cl%0C5%00dQ%60&decode=md5+hash+decode",
 }
-List6 = []
+
 curl = f"curl -i -k -s -X 'POST' https://md5.web-max.ca/index.php -H 'User-Agent:{Headers2['User-Agent']}' -H 'Host:{Headers2['Host']}' -H 'Accept:{Headers2['Accept']}' -H 'Accept-Language:{Headers2['Accept-Language']}' -H 'Origin:{Headers2['Origin']}' -H 'Referer:{Headers2['Referer']}' --data-binary '{Headers2['--data-binary']}'"
 if hash_type == "md5":
     os.popen(f'{curl} > curl5.txt')
@@ -537,3 +540,32 @@ if hash_type == "md5":
                     ErrorMessage9()
                 except NameError:
                     ErrorMessage9()
+
+# ------- MAKE MANUAL ERROR -------
+def ErrorMessage12():
+    print(f"[-]MD5ONLINE-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
+    os.system('rm -r md5online.txt')
+
+# ------- CONTINUE TO URL NUMBER 11 -------
+if hash_type == "md5":
+    os.popen(f'curl -s -i -k -X GET {URL11}{hash_itself} | grep {hash_itself} > md5online.txt')
+    time.sleep(5)
+# ------- OPEN FILE, READ & SPLIT = RESULTS
+with open('md5online.txt', 'r') as doc:
+    for hash1 in doc:
+        if "NESSUN RISULTATO" in hash1:
+            ErrorMessage12()
+        else:
+            if f"{hash_itself}" in hash1:
+                spl3 = hash1.split(f"{hash_itself}")
+                for co in spl3:
+                    if "#004030" in co:
+                        spl4 = co.split("#004030")
+                        for c0x2 in spl4:
+                            if ';">' in c0x2:
+                                e = c0x2.split(';">')
+                                for i in e:
+                                    if "<br></font></center></p></div><center>\n" in i:
+                                        h = i.split("<br></font></center></p></div><center>\n")
+                                        print(f'[+]Decrypted Hash {Red}[MD5ONLINE]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{h[0]}"{Normal} [[ #H#A#S#H# ]]\n')
+                                        os.system('rm -r md5online.txt')
