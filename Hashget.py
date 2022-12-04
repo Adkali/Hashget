@@ -513,13 +513,13 @@ def ErrorMessage11():
  # ------- ADD TO LIST -------
 Headers2 = {
     "User-Agent": "Mozilla/5.0 (Android; Mobile; rv:40.0) Gecko/40.0 Firefox/40.0",
-    "Host": "sha1.web-max.ca",
+    "Host": "md5.web-max.ca",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.5",
     "Origin": "https://md5.web-max.ca",
     "Referer": "https://md5.web-max.ca/index.php",
     "Connection": "close",
-    "--data-binary": f"string={hash_itself}&key=13fd&check_code=7567&hidden_code=%0Cl%0C5%00dQ%60&decode=md5+hash+decode",
+    "--data-binary": f"string={hash_itself}&key=13fd&check_code=2734&hidden_code=%0C%3D%05bT%3DTn&decode=md5+hash+decode",
 }
 
 curl = f"curl -i -k -s -X 'POST' https://md5.web-max.ca/index.php -H 'User-Agent:{Headers2['User-Agent']}' -H 'Host:{Headers2['Host']}' -H 'Accept:{Headers2['Accept']}' -H 'Accept-Language:{Headers2['Accept-Language']}' -H 'Origin:{Headers2['Origin']}' -H 'Referer:{Headers2['Referer']}' --data-binary '{Headers2['--data-binary']}'"
