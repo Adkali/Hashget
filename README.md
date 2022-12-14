@@ -38,3 +38,5 @@ For now, supported hash are MD5, SHA1, SHA256, SHA512.Hope you will find this to
 2. pip3 install --upgrade urllib3
 <br>
 17/11 - recap result in nothing from some sites, which gives zero results back. i will trying to make it work soon i believe. thanks for updating me! current site: md5decrypt. beside that, seems everything else still working as it should. DM me if you have any problems.
+<br><br>
+14/12 - if binary is missing, use "pip install binary".
