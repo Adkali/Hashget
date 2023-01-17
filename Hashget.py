@@ -26,7 +26,7 @@ def BannerShow():
     | | |___| | {BM}A{Normal}
     \ | |____\| L
      \|_________I 
-      {Green}Hashget{Normal} v1.1\n''')
+      {Green}Hashget{Normal} v1.2\n''')
 
 BannerShow()
 
