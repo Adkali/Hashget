@@ -10,7 +10,7 @@
     | | |___| | A
     \ | |____\| L
      \|_________I 
-      Hashget v1.0
+      Hashget v1.2
 </pre>
 
 Hashget is very easy to use.<br>using the '-t' (type) argument with '-ha' (hash itself) will give results.<br>Soon i will add the option of using a wordlist of hashes so the code could read from a TXT file, and send the hashes inside with each request in a loop time. for now, the supported hashes are MD5, SHA1, SHA256, SHA512. 
