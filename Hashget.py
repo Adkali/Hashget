@@ -7,11 +7,13 @@ import subprocess
 import os
 import random
 
-#########################################
-# Pull Hashes Decryption From Online Source Using Python.
-# Adkali.
-# Use -h for help.
-#########################################
+########A####D####K#####A#####L#####I##########
+# Hashget is a hash grabber that  finds matches for given hashes using an online services.
+# The '-ha' flag is used to input the hash, and the '-t' flag specifies the type of hash being used.
+# matches quickly, making it a powerful and essential tool for working with hashes.
+# Created for the convenience of using multiple sources at once.
+# Find any errors? please let me know.
+####H####A####S#####H####G####E#####T###########
 
 def Code_Colors():
     global Yellow, Red, Normal, BM, Green, Gray
@@ -36,7 +38,7 @@ def BannerShow():
 
 BannerShow()
 
-
+# Error
 def Parserr(err):
     print("[!] Syntax Error!")
     print("Usage: python3 [ Script/Name ] -t [Hash type(md5/sha1/sha256/sha512] -h [hash]")
@@ -44,7 +46,7 @@ def Parserr(err):
     exit()
 
 
-# ---------- ARGS TO BE DEFINED AND GETTING INTERCATS WITH USING THE CODE'S FLAGS ----------
+# ---------- ARGS TO BE DEFINED AND GETTING INTERACT WITH USING THE CODE'S FLAGS ----------
 
 parser = argparse.ArgumentParser(description="Hash decrypt using scrapping source.")
 parser.error = Parserr
@@ -114,6 +116,7 @@ URL12 = "https://hashes.com/en/decrypt/hash"
 URL13 = "http://md5.my-addr.com/md5_decrypt-md5_cracker_online/md5_decoder_tool.php"
 print("Pulling Out Hash Decryption, Please Wait.....\n")
 time.sleep(3)
+# ---------------------------------- EACH WEB EACH ----------------------------------
 
 # ------- BASE64 DECODE -------
 
@@ -132,11 +135,10 @@ try:
         soup = BeautifulSoup(r.text, "html.parser")
         links = soup.findAll("a", href=True)
     elif r.status_code == 404:
-        print("Page not found, exit...")
-        exit()
+        print("Page was not found!")
 
 except ConnectionError:
-    print("Something went wrong, try again please")
+    print("Something went wrong, try again please...")
 except Exception as e:
     print(e)
 
@@ -153,8 +155,6 @@ try:
     else:
         print(f'[+]Decrypted Hash {Red}[HashToolKit]:{Normal}  [[ #H#A#S#H# ]] {Yellow}"text":"{L2[1]}"{Normal} [[ #H#A#S#H# ]]\n')
 
-except NameError:
-    ErrorMessage()
 except Exception as e:
     print(e)
 
@@ -437,7 +437,7 @@ with open("cmd5.txt", "r") as LabelAnswer:
             if "<b>" in b[0]:
                 ErrorMessage8()
             else:
-                # print(f'[+]Decrypted Hash {Red}[CMD5]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{b[0]}"{Normal} [[ #H#A#S#H# ]]\n')
+                print(f'[+]Decrypted Hash {Red}[CMD5]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{b[0]}"{Normal} [[ #H#A#S#H# ]]\n')
                 os.popen('rm -r cmd5.txt')
                 subprocess.Popen("anonsurf stop {0} >/dev/null 2>&1 &", shell=True)
 
@@ -522,14 +522,14 @@ with open('recovery.txt', 'r') as rc:
     except Exception as e:
         ErrorMessage10()
 
-# ------- MAKE MANUAL ERROR -------
+# ------- URL NUMBER TEN -------
+ # ------- MAKE MANUAL ERROR -------
 
 def ErrorMessage11():
     print(f"[-]MD5.WEB-MAX-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
     os.system('rm -r curl5.txt')
 
-# ------- CONTINUE TO URL NUMBER 9 -------
-
+# ------- CONTINUE  -------
  # ------- ADD TO DICT -------
 Headers2 = {
     "User-Agent": "Mozilla/5.0 (Android; Mobile; rv:40.0) Gecko/40.0 Firefox/40.0",
@@ -539,41 +539,37 @@ Headers2 = {
     "Origin": "https://md5.web-max.ca",
     "Referer": "https://md5.web-max.ca/index.php",
     "Connection": "close",
-    "--data-binary": f"string={hash_itself}&key=13fd&check_code=5694&hidden_code=%012%01fTh%07%3B&decode=md5+hash+decode",
+    "--data-binary": f"string={hash_itself}&key=13fd&check_code=5532&hidden_code=%5ChW2%011Qa&decode=md5+hash+decode",
 }
-
-curl = f"curl -i -k -s -X 'POST' https://md5.web-max.ca/index.php -H 'User-Agent:{Headers2['User-Agent']}' -H 'Host:{Headers2['Host']}' -H 'Accept:{Headers2['Accept']}' -H 'Accept-Language:{Headers2['Accept-Language']}' -H 'Origin:{Headers2['Origin']}' -H 'Referer:{Headers2['Referer']}' --data-binary '{Headers2['--data-binary']}'"
-if hash_type == "md5":
+try:
+    curl = f"curl -i -k -s -X 'POST' https://md5.web-max.ca/index.php -H 'User-Agent:{Headers2['User-Agent']}' -H 'Host:{Headers2['Host']}' -H 'Accept:{Headers2['Accept']}' -H 'Accept-Language:{Headers2['Accept-Language']}' -H 'Origin:{Headers2['Origin']}' -H 'Referer:{Headers2['Referer']}' --data-binary '{Headers2['--data-binary']}' | grep 'Re-encode'"
     os.popen(f'{curl} > curl5.txt')
-    time.sleep(5)
+except Exception as e:
+    print(e)
+time.sleep(3)
 
-    with open('curl5.txt', 'r') as curl:
-        for i in curl:
-            if 'string' in i:
-                s = i.strip().split("https://")
-            else:
-                pass
-        for n in s:
-            if "Re-encode" in n:
-                try:
-                    results = (n.split("tools.web-max.ca/encode_decode.php?string=")[1].split('">')[0])
-                    print(f'[+]Decrypted Hash {Red}[MD5.WEB-MAX]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results}{Normal} [[ #H#A#S#H# ]]\n')
-                    os.system('rm -r curl5.txt')
-
-                except IndexError:
-                    ErrorMessage11()
-                except NameError:
-                    ErrorMessage11()
+try:
+    with open("curl5.txt", "r") as curl:
+        for word in curl.readlines():
+            strip_me = word.strip()
+            if "https" in strip_me:
+                results = (strip_me.split("tools.web-max.ca/encode_decode.php?string=")[1].split('">')[0])
+                print(f'[+]Decrypted Hash {Red}[MD5-WEB-MAX]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results}{Normal}" [[ #H#A#S#H# ]]\n')
+                os.system("rm -r curl5.txt")
             else:
                 ErrorMessage11()
+except Exception as e:
+    print(e)
 
-# ------- MAKE MANUAL ERROR -------
+# -------  URL NUMBER ELEVEN -------
+ # ------- MAKE MANUAL ERROR -------
 
 def ErrorMessage12():
     print(f"[-]MD5ONLINE-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
     os.system('rm -r md5online.txt')
 
-# ------- CONTINUE TO URL NUMBER 11 -------
+# -------  URL NUMBER ELEVEN -------
+
 if hash_type == "md5":
     os.popen(f'curl -s -i -k -X GET {URL11}{hash_itself} | grep {hash_itself} > md5online.txt')
     time.sleep(5)
@@ -597,12 +593,12 @@ if hash_type == "md5":
                                             print(f'[+]Decrypted Hash {Red}[MD5ONLINE]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{h[0]}"{Normal} [[ #H#A#S#H# ]]\n')
                                             os.system('rm -r md5online.txt')
 
-# ------- MAKE MANUAL ERROR -------
+# -------  URL NUMBER Twelve -------
+ # ------- MAKE MANUAL ERROR -------
+
 def ErrorMessage13():
     print(f"[-]Hashes-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
     os.system('rm -r hashes.txt')
-
-# ------- CONTINUE TO URL NUMBER 12 -------
 
 csrf_token = "c8a73ae8781fda43c447715ef36d7299"
 s = random.randint(1, 6)
