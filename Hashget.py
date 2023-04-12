@@ -1,4 +1,3 @@
-import binary as binary
 import requests
 from bs4 import BeautifulSoup
 import time
@@ -6,15 +5,18 @@ import argparse
 import subprocess
 import os
 import random
+import base64
 
 ########A####D####K#####A#####L#####I##########
-# Hashget is a hash grabber that  finds matches for given hashes using an online services.
+# Hashget v1.2 - Get hashes using online sources. || Adkali
+# Hashget is a hash grabber that finds matches for given hashes using an online services.
 # The '-ha' flag is used to input the hash, and the '-t' flag specifies the type of hash being used.
 # matches quickly, making it a powerful and essential tool for working with hashes.
 # Created for the convenience of using multiple sources at once.
 # Find any errors? please let me know.
 ####H####A####S#####H####G####E#####T###########
 
+# Define colors to be using
 def Code_Colors():
     global Yellow, Red, Normal, BM, Green, Gray
     Yellow = "\033[1;33;40m"
@@ -26,6 +28,7 @@ def Code_Colors():
 
 Code_Colors()
 
+# Simple Adkali banner
 def BannerShow():
     print(f'''\n
     |  _____  |{Yellow}A{Normal}
@@ -38,7 +41,7 @@ def BannerShow():
 
 BannerShow()
 
-# Error
+# Error message to be presented
 def Parserr(err):
     print("[!] Syntax Error!")
     print("Usage: python3 [ Script/Name ] -t [Hash type(md5/sha1/sha256/sha512] -h [hash]")
@@ -81,7 +84,8 @@ if len(hash_itself) != len(md5ex) or hash_type != "md5":
     if len(hash_itself) != len(sha1ex) or hash_type != "sha1":
         if len(hash_itself) != len(sha256ex) or hash_type != "sha256":
             if len(hash_itself) != len(sha512ex) or hash_type != "sha512":
-                HashesList()
+                if hash_itself != "base64" and hash_type != "base64":
+                    HashesList()
 
 
 # ------- MAKE THE HEADERS FOR THE REQUESTS -------
@@ -114,13 +118,19 @@ URL10 = "https://md5.web-max.ca/index.php"
 URL11 = "https://www.md5online.it/index.lm?key_decript="
 URL12 = "https://hashes.com/en/decrypt/hash"
 URL13 = "http://md5.my-addr.com/md5_decrypt-md5_cracker_online/md5_decoder_tool.php"
+URL14 = "http://md5.rf.gd/crack.php"
+
 print("Pulling Out Hash Decryption, Please Wait.....\n")
 time.sleep(3)
 # ---------------------------------- EACH WEB EACH ----------------------------------
 
 # ------- BASE64 DECODE -------
-
-''' SOON '''
+if hash_type == "base64" and hash_itself == "base64":
+    encoding = b64
+    get_string = base64.b64decode(encoding)
+    decoded_string = get_string.decode('utf-8')
+    print(f"Decoded string -> {decoded_string}")
+    exit(0)
 
 # ------- URL NUMBER ONE -------
   # ------- MAKE A MANUAL ERROR -------
@@ -128,35 +138,18 @@ time.sleep(3)
 def ErrorMessage():
     print(f"[-] HashToolKit: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
 
-global links
+r = requests.get(URL, headers=Headers)
+soup = BeautifulSoup(r.text, "html.parser")
+text_to_find = soup.findAll("h1", class_="res-header")
 try:
-    r = requests.get(URL, headers=Headers)
-    if r.status_code == 200:
-        soup = BeautifulSoup(r.text, "html.parser")
-        links = soup.findAll("a", href=True)
-    elif r.status_code == 404:
-        print("Page was not found!")
-
-except ConnectionError:
-    print("Something went wrong, try again please...")
-except Exception as e:
-    print(e)
-
-# ------ CONTINUE CODE -------
-
-try:
-    for split in links:
-        L = split.get("href")
-        if "/generate-hash/?text=" in L:
-            L2 = L.split("/generate-hash/?text=")
-
-    if not L2:
-        ErrorMessage()
+    for word in text_to_find:
+        if "Hashes for" in word.text:
+            results = word.text.split()
+            print(f'[+]Decrypted Hash {Red}[HashToolKit]:{Normal}  [[ #H#A#S#H# ]] {Yellow}"text":"{results[2]}"{Normal} [[ #H#A#S#H# ]]\n')
     else:
-        print(f'[+]Decrypted Hash {Red}[HashToolKit]:{Normal}  [[ #H#A#S#H# ]] {Yellow}"text":"{L2[1]}"{Normal} [[ #H#A#S#H# ]]\n')
-
+        ErrorMessage()
 except Exception as e:
-    print(e)
+    ErrorMessage()
 
 # ------- URL NUMBER Two -------
   # ------- MAKE A MANUAL ERROR -------
@@ -196,7 +189,7 @@ def ErrorMessage3():
 # ------- APPEND TO LIST2 [CLASS TAGS]
 List2 = []
 if hash_type == "md5":
-    r = requests.get(URL3, params=Headers)
+    r = requests.get(URL3, headers=Headers)
     try:
         if r.status_code == 200:
             md5soup = BeautifulSoup(r.content, "html.parser")
@@ -227,7 +220,7 @@ def ErrorMessage4():
 
 List3 = []
 if hash_type == "sha1":
-    r = requests.get(URL4, params=Headers)
+    r = requests.get(URL4, headers=Headers)
     try:
         if r.status_code == 200:
             md5soup2 = BeautifulSoup(r.content, "html.parser")
@@ -443,12 +436,11 @@ with open("cmd5.txt", "r") as LabelAnswer:
 
     except IndexError:
         ErrorMessage8()
-
-# ------- MAKE MANUAL ERROR -------
+# ------- CONTINUE TO URL NUMBER 9 -------
+ # ------- MAKE MANUAL ERROR -------
 def ErrorMessage9():
     print(f"[-]SHA1.WEB-MAX-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
 
-# ------- CONTINUE TO URL NUMBER 9 -------
  # ------- ADD TO LIST -------
 Headers2 = {
     "User-Agent": "Mozilla/5.0 (Android; Mobile; rv:40.0) Gecko/40.0 Firefox/40.0",
@@ -661,3 +653,31 @@ try:
             print(f'[+]Decrypted Hash {Red}[addr]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{word.text.split("Hashed string")[1].strip()}"{Normal} [[ #H#A#S#H# ]]\n')
 except Exception as e:
     ErrorMessage14()
+
+# -------  URL NUMBER FourTeen -------
+ # ------- MAKE MANUAL ERROR -------
+def ErrorMessage15():
+    print(f"[-]md5.rf.gd-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
+
+# ------- URL NUMBER 14 ------
+headers = {
+    "Host": "md5.rf.gd",
+    "Accept": "*/*",
+    "Accept-Language": "en-US,en;q=0.5",
+    "User-Agent": f"{he}",
+    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    "Cookie": "__test=7393d02b6c48d4bb0e81dcbabb44773a; _ga=GA1.2.1981267098.1681228669;",
+    "Content-Length": "63"
+    }
+data = f'eny2={hash_itself}&type=disatt&range=1000000'
+req = requests.post(URL14, headers=headers, data=data)
+try:
+    if not "Text" in req.text:
+        time.sleep(2)
+        hash_results = req.text.split()[2].split("<")[0]
+        print(f'[+]Decrypted Hash {Red}[md5.rf.gd]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{hash_results}"{Normal} [[ #H#A#S#H# ]]\n')
+    else:
+        ErrorMessage15()
+
+except Exception as e:
+    ErrorMessage15()
