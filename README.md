@@ -40,4 +40,5 @@ For now, supported hash are MD5, SHA1, SHA256, SHA512.Hope you will find this to
 <b>17/11</b> --> recap result in nothing from some sites, which gives zero results back.i will trying to make it work soon i believe. thanks for updating me! current site: md5decrypt. beside that, seems everything else still working as it should. DM me if you have any problems.<br><br>
 <b>14/12</b> --> if binary library is missing, use "pip install binary".<br><br>
 <b>17/1</b> --> General Fix & Ouputs.<br><br>
-<b>23/03</b> --> Fix in printing results and add 2 more webs to the list.</b>
+<b>23/03</b> --> Fix in printing results and add 2 more webs to the list.</b><br><br>
+<b>12/04</b> --> Base64 added, more online sources added.
