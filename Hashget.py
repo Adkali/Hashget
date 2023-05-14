@@ -119,6 +119,7 @@ URL11 = "https://www.md5online.it/index.lm?key_decript="
 URL12 = "https://hashes.com/en/decrypt/hash"
 URL13 = "http://md5.my-addr.com/md5_decrypt-md5_cracker_online/md5_decoder_tool.php"
 URL14 = "http://md5.rf.gd/crack.php"
+URL15 = f"http://www.ttmd5.com/do.php?c=Decode&m=getMD5&md5={hash_itself}"
 
 print("Pulling Out Hash Decryption, Please Wait.....\n")
 time.sleep(3)
@@ -146,8 +147,6 @@ try:
         if "Hashes for" in word.text:
             results = word.text.split()
             print(f'[+]Decrypted Hash {Red}[HashToolKit]:{Normal}  [[ #H#A#S#H# ]] {Yellow}"text":"{results[2]}"{Normal} [[ #H#A#S#H# ]]\n')
-    else:
-        ErrorMessage()
 except Exception as e:
     ErrorMessage()
 
@@ -681,3 +680,21 @@ try:
 
 except Exception as e:
     ErrorMessage15()
+
+# -------  URL NUMBER FourTeen -------
+ # ------- MAKE MANUAL ERROR -------
+def ErrorMessage16():
+    print(f"[-]ttmd5-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
+
+# ------- URL NUMBER 14 ------
+headers16 = {
+    "User-Agent": he
+}
+req = requests.get(URL15, headers=headers16)
+if "plain" in req.text:
+    results = req.text.split(",")[2].split('"')[3]
+    print(f'[+]Decrypted Hash {Red}[ttmd5]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results}"{Normal} [[ #H#A#S#H# ]]\n')
+
+else:
+    ErrorMessage16()
+    
