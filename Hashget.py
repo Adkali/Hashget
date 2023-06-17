@@ -694,6 +694,7 @@ req = requests.get(URL15, headers=headers16)
 if "plain" in req.text:
     results = req.text.split(",")[2].split('"')[3]
     print(f'[+]Decrypted Hash {Red}[ttmd5]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results}"{Normal} [[ #H#A#S#H# ]]\n')
+    print("Note -- > Have to sign-in/register before shows decrypted hashes.")
 
 else:
     ErrorMessage16()
