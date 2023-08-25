@@ -120,13 +120,14 @@ URL12 = "https://hashes.com/en/decrypt/hash"
 URL13 = "http://md5.my-addr.com/md5_decrypt-md5_cracker_online/md5_decoder_tool.php"
 URL14 = "http://md5.rf.gd/crack.php"
 URL15 = f"http://www.ttmd5.com/do.php?c=Decode&m=getMD5&md5={hash_itself}"
+URL16 = "https://passwordrecovery.io/md5/"
 
 print("Pulling Out Hash Decryption, Please Wait.....\n")
 time.sleep(3)
 # ---------------------------------- EACH WEB EACH ----------------------------------
 
 # ------- BASE64 DECODE -------
-if hash_type == "base64" and hash_itself == "base64":
+if b64:
     encoding = b64
     get_string = base64.b64decode(encoding)
     decoded_string = get_string.decode('utf-8')
@@ -693,9 +694,49 @@ headers16 = {
 req = requests.get(URL15, headers=headers16)
 if "plain" in req.text:
     results = req.text.split(",")[2].split('"')[3]
-    print(f'[+]Decrypted Hash {Red}[ttmd5]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results}"{Normal} [[ #H#A#S#H# ]]\n')
-    print("Note -- > Have to sign-in/register before shows decrypted hashes.")
-
+    print(f'[+]Decrypted Hash {Red}[ttmd5]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results}"{Normal} [[ #H#A#S#H# ]]\n{Green}Note{Normal} -- > Have to sign-in/register before shows decrypted hashes.')
 else:
     ErrorMessage16()
-    
+
+# -------  URL NUMBER SixTeen -------
+ # ------- MAKE MANUAL ERROR -------
+if hash_type == "md5":
+    def ErrorMessage15():
+        print(f"[-]passwordrecovery: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
+
+    # ------- URL NUMBER 14 ------
+    # Define base headers
+    headers = {
+        'User-Agent': he,
+        'Accept': '*/*',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Accept-Encoding': 'gzip, deflate',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Origin': 'https://passwordrecovery.io',
+        'Referer': 'https://passwordrecovery.io/md5/',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-origin',
+        'Te': 'trailers',
+    }
+
+    # Use a session to maintain cookie session as suppose
+    with requests.Session() as session:
+        session.headers.update(headers)
+
+        # Sending a GET request to receive a CSRF Token
+        get_response = session.get("https://passwordrecovery.io/md5/")
+        soup = BeautifulSoup(get_response.content, 'html.parser')
+        csrf_token = soup.find('input', {'name': 'csrf_token'})['value']
+
+        # Now, send the POST request
+        data_to_send = {
+            "csrf_token": csrf_token,
+            "hash": f"{hash_itself}",
+        }
+        post_url = "https://passwordrecovery.io/query/md5"
+        post_response = session.post(post_url, data=data_to_send)
+        response_text = post_response.text  # Convert the entire response content to string
+        spl2 = response_text.split("The hash is:")
+        results2 = spl2[1].split("<")[0].strip()
+        print(f'\n[+]Decrypted Hash {Red}[passwordrecovery]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results2}"{Normal} [[ #H#A#S#H# ]]')
