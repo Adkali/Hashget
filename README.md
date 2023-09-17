@@ -1,44 +1,68 @@
 # Hashget
-<img src="https://img.shields.io/maintenance/yes/2023"> <img src="https://img.shields.io/badge/Developed%20on-kali%20linux-blueviolet">
-<h4>Pull Hashes Decryption From Online Source Using Python.</h4>Hashget takes hash as argument using '-ha' flag and '-t' as type of hash, and pulling the decryption from the given URL's. Hashget uses as a hash puller instead of using wordlists for the given hash to find a match when does. Online service keeps hashes in some Rainbow-Table and when hash is givven, the results come more faster, and millions of hashes are over there, so i made this tool for my own convenience when using them at once.
 
-# Usage
+https://github.com/Adkali/Hashget/assets/90532971/2cc991f5-1fd7-422b-afee-673b521e634b
+
+![Maintenance Badge](https://img.shields.io/maintenance/yes/2023)
+![Kali Linux Badge](https://img.shields.io/badge/Developed%20on-Kali%20Linux-blueviolet)
+![Kali Linux Badge](https://img.shields.io/badge/Tested%20On-LINUX-Linux)
+
+**Hashget** is a Python tool designed for efficient hash decryption by querying known online sources. Instead of using local wordlists to match a hash, Hashget taps into online Rainbow-Tables to rapidly fetch potential matches. Right now supports md5/sha1/sha256/sha512. while it depends on online sources, things can change.
+
+## Features
+
+- Retrieves hash decryptions from online databases.
+- Optimized for speed and efficiency.
+- Supports MD5, SHA1, SHA256, SHA512 include base64 decoding.
+- Ability to send requests through a proxy server (specifically configured for anonsurf on Kali Linux).
+  
+## Usage
 <pre>
-    |  _____  |A
-    | |\ ___| | D
-    | | |   | | K
-    | | |___| | A
-    \ | |____\| L
-     \|_________I 
-      Hashget v1.2
+|  _____  |A
+| |\ ___| | D
+| | |   | | K
+| | |___| | A
+\ | |____\| L
+ \|_________I 
+  Hashget v1.2
 </pre>
 
-Hashget is very easy to use.<br>using the '-t' (type) argument with '-ha' (hash itself) will give results.<br>Soon i will add the option of using a wordlist of hashes so the code could read from a TXT file, and send the hashes inside with each request in a loop time. for now, the supported hashes are MD5, SHA1, SHA256, SHA512. 
 
+Use the `-t` argument to specify the hash type and the `-ha` argument to provide the hash:
 <pre>
-  -h, --help          show this help message and exit
-  -t T, -type T       Hash type, for example sha1, md5, sha256, etc.
-  -ha HA, -hashit HA  Hash to decrypt
-  -p P, -proxy P      Use proxy when sending request
+  -h, --help          Show this help message and exit
+  -t T, -type T       Specify the hash type (e.g., sha1, md5, sha256, etc.)
+  -ha HA, -hashit HA  Provide the hash to decrypt
+  -p P, -proxy P      Send request using a proxy
 </pre>
 
-# Examples
-Type: MD5 -- > Hash: dc92364159da3086106f6a0c9ee68d06 -- > 'SecurePassword123'
+#### Examples ####
+<pre>
+Type: MD5 --> Hash: dc92364159da3086106f6a0c9ee68d06 --> 'SecurePassword123'
+</pre>
 
-![2](https://user-images.githubusercontent.com/90532971/198870035-49749cc6-07fd-45b0-840d-2b08573d3542.png)<br>
-as you can see from above, the hash seems to be public for now only in 1 site - MD5.GROMWEB. using the code would give you the results much more faster instead of using the browser to look for the hashes decryption. Now, make a use of the '-p-' flag with "set", would give you the option of sending request through proxy server only if you have anonsurf on you machine [ kali ]. making the code run again on same hash with '-p', results in pulling the hash ( if it does in the public database ) :<br>
+<h2>Updates</h2>
 
-![3](https://user-images.githubusercontent.com/90532971/198870319-31e1444a-5bd6-4860-a552-948df0469595.png)
+<p><strong>1/11:</strong> Resolved 'requests.exceptions.InvalidURL: Failed to parse' error. Ensure Python is updated and run the following commands:</p>
+<pre>
+apt update -y
+pip3 install --upgrade urllib3
+</pre>
 
-# Updates
-For now, supported hash are MD5, SHA1, SHA256, SHA512.Hope you will find this tool useful and a shortime maker. if you have any problems or might going some wrong request, please make an issue. make sure you install re req file before runing the code.
-# Notes
-<b>1/11</b> - for some having problems while run the code, and gets error like 'requests.exceptions.InvalidURL: Failed to parse', make sure python is updated or use the following commands. if you having another problems, please let me know.<br>
-1. apt update -y
-2. pip3 install --upgrade urllib3
-<br>
-<b>17/11</b> --> recap result in nothing from some sites, which gives zero results back.i will trying to make it work soon i believe. thanks for updating me! current site: md5decrypt. beside that, seems everything else still working as it should. DM me if you have any problems.<br><br>
-<b>14/12</b> --> if binary library is missing, use "pip install binary".<br><br>
-<b>17/1</b> --> General Fix & Ouputs.<br><br>
-<b>23/03</b> --> Fix in printing results and add 2 more webs to the list.</b><br><br>
-<b>12/04</b> --> Base64 added, more online sources added.
+<p><strong>17/11:</strong> Some sites, such as md5decrypt, are returning zero results. I am are actively working on a solution.</p>
+
+<p><strong>14/12:</strong> If the binary library is missing, install it using:</p>
+<pre>
+pip install binary
+</pre>
+
+<p><strong>17/1:</strong> Various general fixes and improvements to outputs.</p>
+
+<p><strong>23/03:</strong> Improved result printing and added two more websites to the sources.</p>
+
+<p><strong>12/04:</strong> Added support for Base64 and include more online sources.</p>
+
+<p><strong>14/09:</strong> Integrated Selenium for improved web parsing capabilities. Before using this feature, ensure that you have both the `requests` library and the `chromedriver` installed. Chromedriver should be located at `/usr/bin/chromedriver`. Install the required libraries and dependencies using the following commands:</p>
+<pre>
+pip install requests selenium
+sudo cp path_to_your_chromedriver /usr/bin/chromedriver
+</pre>
