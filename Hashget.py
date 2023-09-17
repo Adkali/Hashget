@@ -6,15 +6,27 @@ import subprocess
 import os
 import random
 import base64
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
+import ssl
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.poolmanager import PoolManager
+from requests.packages.urllib3.util.ssl_ import create_urllib3_context
+
 
 ########A####D####K#####A#####L#####I##########
-# Hashget v1.2 - Get hashes using online sources. || Adkali
-# Hashget is a hash grabber that finds matches for given hashes using an online services.
-# The '-ha' flag is used to input the hash, and the '-t' flag specifies the type of hash being used.
-# matches quickly, making it a powerful and essential tool for working with hashes.
-# Created for the convenience of using multiple sources at once.
-# Find any errors? please let me know.
+# Hashget is an advanced tool designed to find matches for given hashes using various online services.
+# It provides a seamless hash lookup experience with its user-friendly interface.
+# Created to enhance your efficiency in handling multiple sources simultaneously.
+# Report any issues for continuous improvement.
+# Please use responsibly. [WhySoSerious?]
 ####H####A####S#####H####G####E#####T###########
+
+# Usage: hashget.py -ha [HASH] -t [HASH_TYPE]
+# GitHub Repository: https://github.com/Adkali/Hashget
 
 # Define colors to be using
 def Code_Colors():
@@ -65,14 +77,13 @@ hash_itself = args.ha
 hash_type = args.t
 pro = args.p
 
-
 # ------- CHECK HASH LENGTH AND COMPARE WITH OTHER HASH -------
 
 def HashesList():
     print("What happened? use the right HASH please.")
     print("Supported hashes(lowercase):")
     print("md5, sha1, sha256, sha512.")
-    print("Soon more will come! Try again please")
+    print("Soon more will come! Try again please.")
     exit()
 
 md5ex = '202cb962ac59075b964b07152d234b70'
@@ -252,7 +263,7 @@ def ErrorMessage5():
 
 recaph = "03AFY_a8VZPDuVaIIt12MK0HfYYHIKtB4g2VIPv3Z62PlX0yYBKQYPjfTepO_3LAHmWfuA12-l72hXhfoROa7Gv_b7wDx0xrMi5Z8P5wiU769eZwgsC8BlgnsWb_n0eJ2mzx83JoRJC5zQ7kO7Yn6OfvkatF9k9U2Honyxh3jkQnjMrGG0px9GBKzRg8L_ZSnPYG3ptTZOHg6DEQUkZFrGPn5uHk4q83bbs7FcYsFIFsGDRXSpa5Q82v6uUQ55AcqgkAeotA1r29lxpJv_tdz3CUOQWIo5A8r52jhmjehjg31hGsyewLEyD2gigHaQslc7XdNngKutXFC7krYw2WUBpzHDyDz8W32_Y8UaAIa-eZeUbju1bPYylCvnnLf93gGlTUmSlLb-P-IzerHGMsmBmCUkSwsc9NLQtATvtcnfNZfnobwzfLsAZ3E-WfprdjDgLKInW8lH1hlPrP2ez4u23xlo40aSvnujsAKbpiYWamgFxsQCBeVvlp3hVQ8I1kxRLePhXuvnzHR6-1gfBG9GY3pG0UZo4IumNH0ap2tG5_c3k_l5IklTVqeCGqL0w-_cNXaPRZk2orJ9"
 a = "curl -i -k -s -X POST -d "
-b = f"'hash={args.ha}&recaptchaResponse={recaph}&button_value=decrypt'"
+b = f"'hash={args.ha}&recaptchaResponse=&button_value=decrypt&decrypt=Decrypt'"
 c = " -H 'User-Agent:Mozilla/5.0 (Windows NT 10.0; WOW64; rv:39.0) Gecko/20100101 Firefox/39.0'"
 d = f" {URL5}"
 e = f" | grep {args.ha}"
@@ -303,16 +314,17 @@ def ErrorMessage6():
 time.sleep(1)
 
 f = "curl -i -k -s -X POST -d "
-g = f"'hash={args.ha}&decrypt=Decrypt'"
-h = " -H 'User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.72 Safari/537.36'"
+g = f"'hash={args.ha}&recaptchaResponse=&button_value=decrypt'"
+h = f" -H 'User-Agent:{he}'"
 i = f" {URL6}"
 j = f" | grep {args.ha}"
 command = f + g + h + i + j
 
 Result2 = []
+
 if hash_type == "sha1":
     a = os.popen(f'{command} > sha1data.txt')
-    time.sleep(10)
+    time.sleep(5)
 
     try:
         with open('sha1data.txt', 'r') as data2:
@@ -344,11 +356,12 @@ def ErrorMessage7():
     time.sleep(2)
 
 f = "curl -i -k -s -X POST -d "
-g = f"'hash={args.ha}&decrypt=Decrypt'"
+g =f"'hash={args.ha}&recaptchaResponse=&button_value=decrypt'"
 h = " -H 'User-Agent:Mozilla/5.0 (Android; Mobile; rv:40.0) Gecko/40.0 Firefox/40.0'"
 i = f" {URL7}"
 j = f" | grep {args.ha}"
 command = f + g + h + i + j
+
 if hash_type == "sha256":
     a = os.popen(f'{command} > sha256data.txt')
     time.sleep(2)
@@ -473,123 +486,145 @@ if hash_type == "sha1":
                     ErrorMessage9()
 
 # ------- MAKE MANUAL ERROR -------
+''' 
+These lines are re-newed at the bottom. 
+Code continues!
+'''
 
-def ErrorMessage10():
-    print(f"[-]PSRECOVERY: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
-
-# ------- CONTINUE TO URL NUMBER 10 -------
-# ------- ADD TO DICT --------
-Headers3 = {
-    "User-Agent": "Mozilla/5.0 (Android; Mobile; rv:40.0) Gecko/40.0 Firefox/40.0",
-    "Host": "passwordrecovery.io",
-    "Accept-Language": "en-US,en;q=0.5",
-    "Accept-Encoding": "gzip, deflate",
-    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-    "Origin": "https://passwordrecovery.io",
-    "Referer": "https://passwordrecovery.io/md5/",
-    "--data-binary": f"csrf_token=ImQ2ZDAzNGYzMDVhOTliOWM1YmE0ZGRiYTRmNDU0NWQ4NDZjNDQ0MGQi.ZBq3cQ.n-M7Xxop1D-D5LjydrH5nVBqPoE&hash={hash_itself}"
-}
-
-curl_as_command = f"curl -i -k -s -X 'POST' -H 'User-Agent: {Headers3['User-Agent']}' -H 'Host: {Headers3['Host']}' -H 'Accept-Language: {Headers3['Accept-Language']}' -H 'Accept-Encoding: {Headers3['Accept-Encoding']}' -H 'Content-Type: {Headers3['Content-Type']}' -H 'Origin: {Headers3['Origin']}' -H 'Referer: {Headers3['Referer']}' -b session='eyJjc3JmX3Rva2VuIjoiZDZkMDM0ZjMwNWE5OWI5YzViYTRkZGJhNGY0NTQ1ZDg0NmM0NDQwZCJ9.ZBq3cQ.0z5u6PENd4eQkQB-rRCK-bed1E4' --data-binary '{Headers3['--data-binary']}' --compressed https://passwordrecovery.io/query/md5 | grep 'The hash is' > recovery.txt"
-os.popen(f"{curl_as_command}")
-time.sleep(3)
-
-with open('recovery.txt', 'r') as rc:
-    try:
-        for i in rc.readlines():
-            if "The hash is" in i:
-                s = i.split("The hash is")
-                for i in s:
-                    z = i.split("</div>")
-                for i in z:
-                    if ":" in i:
-                        r = i.split(":")
-                        print(f'[+]Decrypted Hash {Red}[PSRECOVERY]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{r[1].strip()}" [[ #H#A#S#H# ]]\n')
-                        os.system('rm -r recovery.txt')
-                    else:
-                        pass
-            else:
-                pass
-
-    except Exception as e:
-        ErrorMessage10()
+# def ErrorMessage10():
+#     print(f"[-]PSRECOVERY: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
+#     os.system('rm -r recovery.txt')
+#
+# # ------- CONTINUE TO URL NUMBER 10 -------
+# # ------- ADD TO DICT --------
+# Headers3 = {
+#     "User-Agent": "Mozilla/5.0 (Android; Mobile; rv:40.0) Gecko/40.0 Firefox/40.0",
+#     "Host": "passwordrecovery.io",
+#     "Accept-Language": "en-US,en;q=0.5",
+#     "Accept-Encoding": "gzip, deflate",
+#     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+#     "Origin": "https://passwordrecovery.io",
+#     "Referer": "https://passwordrecovery.io/md5/",
+#     "--data-binary": f"csrf_token=ImQ2ZDAzNGYzMDVhOTliOWM1YmE0ZGRiYTRmNDU0NWQ4NDZjNDQ0MGQi.ZBq3cQ.n-M7Xxop1D-D5LjydrH5nVBqPoE&hash={hash_itself}"
+# }
+#
+# curl_as_command = f"curl -i -k -s -X 'POST' -H 'User-Agent: {Headers3['User-Agent']}' -H 'Host: {Headers3['Host']}' -H 'Accept-Language: {Headers3['Accept-Language']}' -H 'Accept-Encoding: {Headers3['Accept-Encoding']}' -H 'Content-Type: {Headers3['Content-Type']}' -H 'Origin: {Headers3['Origin']}' -H 'Referer: {Headers3['Referer']}' -b session='eyJjc3JmX3Rva2VuIjoiZDZkMDM0ZjMwNWE5OWI5YzViYTRkZGJhNGY0NTQ1ZDg0NmM0NDQwZCJ9.ZBq3cQ.0z5u6PENd4eQkQB-rRCK-bed1E4' --data-binary '{Headers3['--data-binary']}' --compressed https://passwordrecovery.io/query/md5 | grep 'The hash is' > recovery.txt"
+# print(curl_as_command)
+# os.popen(f"{curl_as_command}")
+# time.sleep(3)
+#
+# with open('recovery.txt', 'r') as rc:
+#     try:
+#         for i in rc.readlines():
+#             if "The hash is" in i:
+#                 s = i.split("The hash is")
+#                 for i in s:
+#                     z = i.split("</div>")
+#                 for i in z:
+#                     if ":" in i:
+#                         r = i.split(":")
+#                         print(f'[+]Decrypted Hash {Red}[PSRECOVERY]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{r[1].strip()}" [[ #H#A#S#H# ]]\n')
+#                         os.system('rm -r recovery.txt')
+#                     else:
+#                         pass
+#             else:
+#                 pass
+#
+#     except Exception as e:
+#         ErrorMessage10()
 
 # ------- URL NUMBER TEN -------
  # ------- MAKE MANUAL ERROR -------
 
 def ErrorMessage11():
     print(f"[-]MD5.WEB-MAX-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
-    os.system('rm -r curl5.txt')
 
 # ------- CONTINUE  -------
  # ------- ADD TO DICT -------
 Headers2 = {
-    "User-Agent": "Mozilla/5.0 (Android; Mobile; rv:40.0) Gecko/40.0 Firefox/40.0",
+    "User-Agent": f"{he}",
     "Host": "md5.web-max.ca",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.5",
     "Origin": "https://md5.web-max.ca",
     "Referer": "https://md5.web-max.ca/index.php",
     "Connection": "close",
-    "--data-binary": f"string={hash_itself}&key=13fd&check_code=5532&hidden_code=%5ChW2%011Qa&decode=md5+hash+decode",
 }
-try:
-    curl = f"curl -i -k -s -X 'POST' https://md5.web-max.ca/index.php -H 'User-Agent:{Headers2['User-Agent']}' -H 'Host:{Headers2['Host']}' -H 'Accept:{Headers2['Accept']}' -H 'Accept-Language:{Headers2['Accept-Language']}' -H 'Origin:{Headers2['Origin']}' -H 'Referer:{Headers2['Referer']}' --data-binary '{Headers2['--data-binary']}' | grep 'Re-encode'"
-    os.popen(f'{curl} > curl5.txt')
-except Exception as e:
-    print(e)
-time.sleep(3)
 
-try:
-    with open("curl5.txt", "r") as curl:
-        for word in curl.readlines():
-            strip_me = word.strip()
-            if "https" in strip_me:
-                results = (strip_me.split("tools.web-max.ca/encode_decode.php?string=")[1].split('">')[0])
-                print(f'[+]Decrypted Hash {Red}[MD5-WEB-MAX]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results}{Normal}" [[ #H#A#S#H# ]]\n')
-                os.system("rm -r curl5.txt")
-            else:
-                ErrorMessage11()
-except Exception as e:
-    print(e)
+data_to_send = {
+    "string": f"{hash_itself}",
+    "key": "13df",
+    "check_code": "5248",
+    "hidden_code": "%011%06e%06d%05%3F",
+    "decode": "md5+hash+decode"
+}
+
+if hash_type == "md5":
+    response = requests.post(URL10, headers=Headers2, data=data_to_send)
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.content, 'html.parser')
+        try:
+            for paragraph in soup.findAll("p"):
+                if "String" in paragraph.text:
+                    find_me = paragraph.text.split("String")[1].split(":\xa0\r\n\t\t\t\t\t")[1]
+                    print(f'[+]Decrypted Hash {Red}[md5.web-max]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{find_me}"{Normal} [[ #H#A#S#H# ]]\n')
+
+        except Exception as e:
+            ErrorMessage11()
 
 # -------  URL NUMBER ELEVEN -------
  # ------- MAKE MANUAL ERROR -------
 
 def ErrorMessage12():
     print(f"[-]MD5ONLINE-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
-    os.system('rm -r md5online.txt')
 
 # -------  URL NUMBER ELEVEN -------
 
+# Custom HTTPS Adapter that uses a lower security SSL context
+# creating a custom class
+class DESAdapter(HTTPAdapter):
+    # function for defining inside the DESAdapter.
+    def init_poolmanager(self, connections, maxsize, block=False, **pool_kwargs):
+        # allow for the usage of weaker ciphers with smaller DH keys.
+        context = create_urllib3_context(ciphers='DEFAULT:@SECLEVEL=1')
+        # Here we're setting up a "pool". Think of it like setting up multiple phone lines
+        # so we can talk to multiple websites at the same time.
+        # We're just setting how many lines, their size, etc., and telling it to use our secure settings from above.
+        self.poolmanager = PoolManager(
+            num_pools=connections,
+            maxsize=maxsize,            # This is the maximum size or capacity of each line.
+            block=block,                # This decides if we wait when all lines are busy or just hang up.
+            ssl_version=ssl.PROTOCOL_TLS,  # This is like picking a language version for secure talk.
+            ssl_context=context            # These are the secure settings above.
+        )
+
 if hash_type == "md5":
-    os.popen(f'curl -s -i -k -X GET {URL11}{hash_itself} | grep {hash_itself} > md5online.txt')
-    time.sleep(5)
-# ------- OPEN FILE, READ & SPLIT = RESULTS
-    with open('md5online.txt', 'r') as doc:
-        for hash1 in doc:
-            if "NESSUN RISULTATO" in hash1:
-                ErrorMessage12()
-            else:
-                if f"{hash_itself}" in hash1:
-                    spl3 = hash1.split(f"{hash_itself}")
-                    for co in spl3:
-                        if "#004030" in co:
-                            spl4 = co.split("#004030")
-                            for c0x2 in spl4:
-                                if ';">' in c0x2:
-                                    e = c0x2.split(';">')
-                                    for i in e:
-                                        if "<br></font></center></p></div><center>\n" in i:
-                                            h = i.split("<br></font></center></p></div><center>\n")
-                                            print(f'[+]Decrypted Hash {Red}[MD5ONLINE]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{h[0]}"{Normal} [[ #H#A#S#H# ]]\n')
-                                            os.system('rm -r md5online.txt')
+    s = requests.Session()
+    s.mount("https://", DESAdapter())
+
+    try:
+        hash_to_get = s.get(f"https://md5online.it/index.lm?key_decript={hash_itself}", verify=False)
+        if hash_to_get.status_code == 200:
+            soup = BeautifulSoup(hash_to_get.text, "html.parser")
+            if not "NESSUN RISULTATO" in soup.text:
+                Gotcha_ya = soup.text.split(f"{hash_itself}")[1].strip().split("\n")[0].strip().split('")')[1]
+                print(
+                    f'[+]Decrypted Hash {Red}[MD5ONLINE[IT]]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{Gotcha_ya}"{Normal} [[ #H#A#S#H# ]]\n')
+    except requests.exceptions.SSLError as e:
+        print(f"[!] SSL Error on MD5ONLINE[IT], continue...\n")
+        # If you want to exit the program after an error, uncomment the next line:
+        # exit(1)
+    except requests.exceptions.RequestException as e:
+        print(f"[!] SSL Error on MD5ONLINE[IT], continue...\n")
+        # If you want to exit the program after an error, uncomment the next line:
+        # exit(1)
+
 
 # -------  URL NUMBER Twelve -------
  # ------- MAKE MANUAL ERROR -------
 
 def ErrorMessage13():
-    print(f"[-]Hashes-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
+    print(f"[-]Hashes-: {Green}{args.ha}{Normal} -- > Request blocked, continue....\n")
     os.system('rm -r hashes.txt')
 
 csrf_token = "c8a73ae8781fda43c447715ef36d7299"
@@ -600,12 +635,13 @@ Headers4 = {
     "Host": "Hashes.com",
     "Origin": "https://hashes.com",
     "referer": f"{URL12}",
-    "Cookie": f"csrf_cookie={csrf_token2}",
-    "--data-binary": f"csrf_token={csrf_token2}&hashes={hash_itself}&knn=64&submitted=true"
+    "Cookie": f"csrf_cookie={csrf_token2}, user=",
+    "--data-binary": f"csrf_token={csrf_token2}&hashes={hash_itself}&captchaIdentifier=&captcha=&submitted=true"
 }
 
 if hash_type == "md5" or hash_type == "sha256":
-    os.popen(f"curl -s -i -k -X 'POST' -H 'Host: {Headers4['Host']}' -H 'Origin: {Headers4['Origin']}' -H 'referer: {Headers4['referer']}' -H 'Cookie: {Headers4['Cookie']}' --data-binary '{Headers4['--data-binary']}' https://hashes.com/en/decrypt/hash | grep {hash_itself} > hashes.txt")
+    command2 = f"curl -s -i -k -X 'POST' -H 'Host: {Headers4['Host']}' -H 'Origin: {Headers4['Origin']}' -H 'referer: {Headers4['referer']}' -H 'Cookie: {Headers4['Cookie']}' --data-binary '{Headers4['--data-binary']}' https://hashes.com/en/decrypt/hash | grep {hash_itself} > hashes.txt"
+    os.popen(command2)
     time.sleep(3)
 
     with open("hashes.txt", "r") as hashes:
@@ -618,7 +654,7 @@ if hash_type == "md5" or hash_type == "sha256":
                 else:
                     ErrorMessage13()
         except Exception as e:
-            print(e)
+            ErrorMessage13()
 
 # ------- MAKE MANUAL ERROR -------
 def ErrorMessage14():
@@ -643,44 +679,68 @@ header = {
     "Referer": "http://md5.my-addr.com/md5_decrypt-md5_cracker_online/md5_decoder_tool.php",
     "Upgrade-Insecure-Requests": "1",
 }
+if hash_type == "md5":
+    try:
+        req = requests.post(URL13, headers=header, data=data)
+        soup = BeautifulSoup(req.text, "html.parser")
+        for word in soup.findAll("div", class_="white_bg_title"):
+            if "Hashed" in word.text:
+                time.sleep(2)
+                print(f'[+]Decrypted Hash {Red}[addr]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{word.text.split("Hashed string")[1].strip()}"{Normal} [[ #H#A#S#H# ]]\n')
+    except Exception as e:
+        ErrorMessage14()
 
-try:
-    req = requests.post(URL13, headers=header, data=data)
-    soup = BeautifulSoup(req.text, "html.parser")
-    for word in soup.findAll("div", class_="white_bg_title"):
-        if "Hashed" in word.text:
-            time.sleep(2)
-            print(f'[+]Decrypted Hash {Red}[addr]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{word.text.split("Hashed string")[1].strip()}"{Normal} [[ #H#A#S#H# ]]\n')
-except Exception as e:
-    ErrorMessage14()
+    # -------  URL NUMBER FourTeen -------
+     # ------- MAKE MANUAL ERROR -------
+    def ErrorMessage15():
+        print(f"[-]md5.rf.gd-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
 
-# -------  URL NUMBER FourTeen -------
- # ------- MAKE MANUAL ERROR -------
-def ErrorMessage15():
-    print(f"[-]md5.rf.gd-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
+    # ------- URL NUMBER 14 ------
+    headers = {
+        "Host": "md5.rf.gd",
+        "Accept": "*/*",
+        "Accept-Language": "en-US,en;q=0.5",
+        "User-Agent": f"{he}",
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        }
 
-# ------- URL NUMBER 14 ------
-headers = {
-    "Host": "md5.rf.gd",
-    "Accept": "*/*",
-    "Accept-Language": "en-US,en;q=0.5",
-    "User-Agent": f"{he}",
-    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-    "Cookie": "__test=7393d02b6c48d4bb0e81dcbabb44773a; _ga=GA1.2.1981267098.1681228669;",
-    "Content-Length": "63"
-    }
-data = f'eny2={hash_itself}&type=disatt&range=1000000'
-req = requests.post(URL14, headers=headers, data=data)
-try:
-    if not "Text" in req.text:
-        time.sleep(2)
-        hash_results = req.text.split()[2].split("<")[0]
-        print(f'[+]Decrypted Hash {Red}[md5.rf.gd]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{hash_results}"{Normal} [[ #H#A#S#H# ]]\n')
+    # For this, i will use chromedriver with selenium
+    def is_chromedriver_in_directory():
+        try:
+            result = os.popen("which chromedriver").read().strip()
+            if "chromedriver" in result:
+                return result
+            else:
+                return None
+        except Exception as e:
+            return None
+
+    chromedriver_path = is_chromedriver_in_directory()
+    if chromedriver_path:
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")  # Run Chrome in headless mode (no GUI)
+        chrome_options.add_argument("--no-sandbox")  # Add this to fix the Chrome crash issue
+        chrome_options.add_argument("--disable-dev-shm-usage")  # Add this too for the same reason
+
+        # Use Service object
+        s = Service(chromedriver_path)
+        driver = webdriver.Chrome(service=s, options=chrome_options)
+        driver.get(URL14)
+        input_element = driver.find_element(By.NAME, "eny2")
+        input_element.send_keys(f"{hash_itself}")
+        input_element.send_keys(Keys.RETURN)
+        time.sleep(3)
+
+        # Hope it will work!
+        try:
+            # Adjust the below line to correctly identify and extract the decrypted hash from the page.
+            hash_results = driver.find_element(By.CSS_SELECTOR, ".doutput").text
+            print(f'[+]Decrypted Hash {Red}[md5.rf.gd]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{hash_results.split("Found : ")[1].strip()}"{Normal} [[ #H#A#S#H# ]]\n')
+        except:
+            ErrorMessage15()
+        driver.quit()
     else:
-        ErrorMessage15()
-
-except Exception as e:
-    ErrorMessage15()
+        print(f"[!]Note Please: No chromedriver was found in the system's PATH, continue WITHOUT {Green}md5.rf{Normal} ...\n")
 
 # -------  URL NUMBER FourTeen -------
  # ------- MAKE MANUAL ERROR -------
@@ -694,7 +754,8 @@ headers16 = {
 req = requests.get(URL15, headers=headers16)
 if "plain" in req.text:
     results = req.text.split(",")[2].split('"')[3]
-    print(f'[+]Decrypted Hash {Red}[ttmd5]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results}"{Normal} [[ #H#A#S#H# ]]\n{Green}Note{Normal} -- > Have to sign-in/register before shows decrypted hashes.')
+    print(f'[+]Decrypted Hash {Red}[ttmd5]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results}"{Normal} [[ #H#A#S#H# ]]')
+    print(f'Please {Green}Note{Normal} -->> You have to sign-in/register before shows decrypted hashes.')
 else:
     ErrorMessage16()
 
@@ -702,7 +763,7 @@ else:
  # ------- MAKE MANUAL ERROR -------
 if hash_type == "md5":
     def ErrorMessage15():
-        print(f"[-]passwordrecovery: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
+        print(f"\n[-]passwordrecovery: {Green}{args.ha}{Normal} -- > Hash does not exist in database.")
 
     # ------- URL NUMBER 14 ------
     # Define base headers
@@ -737,6 +798,9 @@ if hash_type == "md5":
         post_url = "https://passwordrecovery.io/query/md5"
         post_response = session.post(post_url, data=data_to_send)
         response_text = post_response.text  # Convert the entire response content to string
-        spl2 = response_text.split("The hash is:")
-        results2 = spl2[1].split("<")[0].strip()
-        print(f'\n[+]Decrypted Hash {Red}[passwordrecovery]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results2}"{Normal} [[ #H#A#S#H# ]]')
+        try:
+            spl2 = response_text.split("The hash is:")
+            results2 = spl2[1].split("<")[0].strip()
+            print(f'\n[+]Decrypted Hash {Red}[passwordrecovery]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results2}"{Normal} [[ #H#A#S#H# ]]')
+        except Exception as e:
+            ErrorMessage15()
