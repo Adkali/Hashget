@@ -703,7 +703,7 @@ if hash_type == "md5":
         for word in soup.findAll("div", class_="white_bg_title"):
             if "Hashed" in word.text and not "not found" in word.text:
                 time.sleep(2)
-                print(f'[+]Decrypted Hash {Red}[addr]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{word.text.split("Hashed string")[1].strip()}"{Normal} [[ #H#A#S#H# ]]\n')
+                print(f'[+]Decrypted Hash {Red}[addr]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{word.text.split("Hashed string")[1].split(": ")[1].strip()}"{Normal} [[ #H#A#S#H# ]]\n')
     except Exception as e:
         ErrorMessage14()
 
