@@ -115,7 +115,7 @@ he = random.choice(agents)
 Headers = {'User-Agent': f'{he}'}
 
 # ------- LIST OF SITES FOR THE DECRYPTED WANTED HASH FUNCTION -------
-
+URL0 = f"https://www.nitrxgen.net/md5db/{hash_itself}"
 URL = f"https://hashtoolkit.com/decrypt-hash/?hash={hash_itself}"
 URL2 = f"https://decrypt.tools/client-server/decrypt?type={hash_type}&string={hash_itself}"
 URL3 = f"https://md5.gromweb.com/?md5={hash_itself}"
@@ -144,6 +144,23 @@ if b64:
     decoded_string = get_string.decode('utf-8')
     print(f"Decoded string -> {decoded_string}")
     exit(0)
+
+# ------- URL NUMBER ONE -------
+  # ------- MAKE A MANUAL ERROR -------
+
+def ErrorMessage0():
+    print(f"[-] nitrxgen: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
+
+if hash_type == "md5":
+    try:
+        r = requests.get(f"{URL0}").text
+        if not r or r.isspace() or "0 results" in r or r == "0":
+            ErrorMessage0()
+        else:
+            print(f'[+] Decrypted Hash {Red}[nitrxgen]:{Normal}  [[ #H#A#S#H# ]] {Yellow}"text":"{r}"{Normal} [[ #H#A#S#H# ]]\n')
+    except Exception as e:
+        ErrorMessage0()
+
 
 # ------- URL NUMBER ONE -------
   # ------- MAKE A MANUAL ERROR -------
@@ -568,7 +585,6 @@ if hash_type == "md5":
                 if "String" in paragraph.text:
                     find_me = paragraph.text.split("String")[1].split(":\xa0\r\n\t\t\t\t\t")[1]
                     print(f'[+]Decrypted Hash {Red}[md5.web-max]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{find_me}"{Normal} [[ #H#A#S#H# ]]\n')
-
         except Exception as e:
             ErrorMessage11()
 
@@ -662,10 +678,11 @@ def ErrorMessage14():
 
 # ------- CONTINUE TO URL NUMBER 13 -------
 
-data = {"md5": hash_itself,
-        "x": "20",
-        "y": "12"
-        }
+data = {
+    "md5": hash_itself,
+    "x": "20",
+    "y": "12"
+}
 
 header = {
     "Host": "md5.my-addr.com",
@@ -684,63 +701,63 @@ if hash_type == "md5":
         req = requests.post(URL13, headers=header, data=data)
         soup = BeautifulSoup(req.text, "html.parser")
         for word in soup.findAll("div", class_="white_bg_title"):
-            if "Hashed" in word.text:
+            if "Hashed" in word.text and not "not found" in word.text:
                 time.sleep(2)
                 print(f'[+]Decrypted Hash {Red}[addr]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{word.text.split("Hashed string")[1].strip()}"{Normal} [[ #H#A#S#H# ]]\n')
     except Exception as e:
         ErrorMessage14()
 
-    # -------  URL NUMBER FourTeen -------
-     # ------- MAKE MANUAL ERROR -------
-    def ErrorMessage15():
-        print(f"[-]md5.rf.gd-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
+# -------  URL NUMBER FourTeen -------ls
+    # ------- MAKE MANUAL ERROR -------
+def ErrorMessage15():
+    print(f"[-]md5.rf.gd-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
 
-    # ------- URL NUMBER 14 ------
-    headers = {
-        "Host": "md5.rf.gd",
-        "Accept": "*/*",
-        "Accept-Language": "en-US,en;q=0.5",
-        "User-Agent": f"{he}",
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        }
+# ------- URL NUMBER 14 ------
+headers = {
+    "Host": "md5.rf.gd",
+    "Accept": "*/*",
+    "Accept-Language": "en-US,en;q=0.5",
+    "User-Agent": f"{he}",
+    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    }
 
     # For this, i will use chromedriver with selenium
-    def is_chromedriver_in_directory():
-        try:
-            result = os.popen("which chromedriver").read().strip()
-            if "chromedriver" in result:
-                return result
-            else:
-                return None
-        except Exception as e:
+def is_chromedriver_in_directory():
+    try:
+        result = os.popen("which chromedriver").read().strip()
+        if "chromedriver" in result:
+            return result
+        else:
             return None
+    except Exception as e:
+        return None
 
-    chromedriver_path = is_chromedriver_in_directory()
-    if chromedriver_path:
-        chrome_options = Options()
-        chrome_options.add_argument("--headless")  # Run Chrome in headless mode (no GUI)
-        chrome_options.add_argument("--no-sandbox")  # Add this to fix the Chrome crash issue
-        chrome_options.add_argument("--disable-dev-shm-usage")  # Add this too for the same reason
+chromedriver_path = is_chromedriver_in_directory()
+if chromedriver_path:
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")  # Run Chrome in headless mode (no GUI)
+    chrome_options.add_argument("--no-sandbox")  # Add this to fix the Chrome crash issue
+    chrome_options.add_argument("--disable-dev-shm-usage")  # Add this too for the same reason
 
-        # Use Service object
-        s = Service(chromedriver_path)
-        driver = webdriver.Chrome(service=s, options=chrome_options)
-        driver.get(URL14)
-        input_element = driver.find_element(By.NAME, "eny2")
-        input_element.send_keys(f"{hash_itself}")
-        input_element.send_keys(Keys.RETURN)
-        time.sleep(3)
+    # Use Service object
+    s = Service(chromedriver_path)
+    driver = webdriver.Chrome(service=s, options=chrome_options)
+    driver.get(URL14)
+    input_element = driver.find_element(By.NAME, "eny2")
+    input_element.send_keys(f"{hash_itself}")
+    input_element.send_keys(Keys.RETURN)
+    time.sleep(3)
 
-        # Hope it will work!
-        try:
-            # Adjust the below line to correctly identify and extract the decrypted hash from the page.
-            hash_results = driver.find_element(By.CSS_SELECTOR, ".doutput").text
-            print(f'[+]Decrypted Hash {Red}[md5.rf.gd]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{hash_results.split("Found : ")[1].strip()}"{Normal} [[ #H#A#S#H# ]]\n')
-        except:
-            ErrorMessage15()
+    # Hope it will work!
+    try:
+        # Adjust the below line to correctly identify and extract the decrypted hash from the page.
+        hash_results = driver.find_element(By.CSS_SELECTOR, ".doutput").text
+        print(f'[+]Decrypted Hash {Red}[md5.rf.gd]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{hash_results.split("Found : ")[1].strip()}"{Normal} [[ #H#A#S#H# ]]\n')
+    except:
+        ErrorMessage15()
         driver.quit()
-    else:
-        print(f"[!]Note Please: No chromedriver was found in the system's PATH, continue WITHOUT {Green}md5.rf{Normal} ...\n")
+else:
+    print(f"[!]Note Please: No chromedriver was found in the system's PATH, continue WITHOUT {Green}md5.rf{Normal} ...\n")
 
 # -------  URL NUMBER FourTeen -------
  # ------- MAKE MANUAL ERROR -------
@@ -755,7 +772,7 @@ req = requests.get(URL15, headers=headers16)
 if "plain" in req.text:
     results = req.text.split(",")[2].split('"')[3]
     print(f'[+]Decrypted Hash {Red}[ttmd5]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results}"{Normal} [[ #H#A#S#H# ]]')
-    print(f'Please {Green}Note{Normal} -->> You have to sign-in/register before shows decrypted hashes.')
+    print(f'Please {Green}Note{Normal} -->> You have to sign-in/register before shows decrypted hashes.\n')
 else:
     ErrorMessage16()
 
@@ -763,7 +780,7 @@ else:
  # ------- MAKE MANUAL ERROR -------
 if hash_type == "md5":
     def ErrorMessage15():
-        print(f"\n[-]passwordrecovery: {Green}{args.ha}{Normal} -- > Hash does not exist in database.")
+        print(f"[-]passwordrecovery: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
 
     # ------- URL NUMBER 14 ------
     # Define base headers
@@ -801,6 +818,6 @@ if hash_type == "md5":
         try:
             spl2 = response_text.split("The hash is:")
             results2 = spl2[1].split("<")[0].strip()
-            print(f'\n[+]Decrypted Hash {Red}[passwordrecovery]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results2}"{Normal} [[ #H#A#S#H# ]]')
+            print(f'[+]Decrypted Hash {Red}[passwordrecovery]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results2}"{Normal} [[ #H#A#S#H# ]]')
         except Exception as e:
             ErrorMessage15()
