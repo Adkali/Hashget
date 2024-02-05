@@ -27,8 +27,11 @@ from requests.packages.urllib3.util.ssl_ import create_urllib3_context
 
 # Usage: hashget.py -ha [HASH] -t [HASH_TYPE]
 # GitHub Repository: https://github.com/Adkali/Hashget
+# Want to take a part helping in maintaining it? Contact Me!
+
 
 # Define colors to be using
+# When code runs and output results or error
 def Code_Colors():
     global Yellow, Red, Normal, BM, Green, Gray
     Yellow = "\033[1;33;40m"
@@ -216,28 +219,25 @@ def ErrorMessage3():
 
 # ------- APPEND TO LIST2 [CLASS TAGS]
 List2 = []
-if hash_type == "md5":
-    r = requests.get(URL3, headers=Headers)
-    try:
-        if r.status_code == 200:
-            md5soup = BeautifulSoup(r.content, "html.parser")
-            for i in md5soup:
-                md5split = md5soup.findAll("em", {"class": "long-content string"})
-                for i in md5split:
-                    if 'long-content string' in f"{i}":
-                        List2.append(i)
-    except IndexError:
-        ErrorMessage3()
-    except Exception as e:
-        print(e)
-# ------- FINISH TRY,EXCEPT AND USE [2] FOR RESULTS -------
-    try:
-        for i in List2[2]:
-            print(f'[+]Decrypted Hash {Red}[Md5.GromWeb]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{i}"{Normal} [[ #H#A#S#H# ]]\n')
-    except IndexError:
-        ErrorMessage3()
-else:
-    pass
+r = requests.get(URL3, headers=Headers)
+try:
+    if r.status_code == 200:
+        md5soup = BeautifulSoup(r.content, "html.parser")
+        md5split = md5soup.findAll("a", {"class": "String"})
+        for i in md5split:
+            href_value = i['href']
+            if "string" in href_value:
+                List2.append(href_value)
+                # Append it to List2', Now split it
+except Exception as e:
+    print(ErrorMessage3())
+
+# Results
+try:
+    print(f'[+]Decrypted Hash {Red}[MD5.GromWeb]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{List2[0].split("=")[1]}"{Normal} [[ #H#A#S#H# ]]\n')
+
+except Exception as e:
+    print(ErrorMessage3())
 
 
 # -------  URL NUMBER FOUR -------
@@ -640,7 +640,7 @@ if hash_type == "md5":
  # ------- MAKE MANUAL ERROR -------
 
 def ErrorMessage13():
-    print(f"[-]Hashes-: {Green}{args.ha}{Normal} -- > Request blocked, continue....\n")
+    print(f"[-]Hashes: {Green}{args.ha}{Normal} -- > Request blocked, continue....\n")
     os.system('rm -r hashes.txt')
 
 csrf_token = "c8a73ae8781fda43c447715ef36d7299"
@@ -821,3 +821,5 @@ if hash_type == "md5":
             print(f'[+]Decrypted Hash {Red}[passwordrecovery]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{results2}"{Normal} [[ #H#A#S#H# ]]')
         except Exception as e:
             ErrorMessage15()
+
+# STOP HERE
