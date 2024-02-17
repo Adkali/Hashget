@@ -226,7 +226,7 @@ try:
         md5split = md5soup.findAll("a", {"class": "String"})
         for i in md5split:
             href_value = i['href']
-            if "string" in href_value:
+            if "string" in href_value and not "no reverse string was found" in md5soup.findAll("p"):
                 List2.append(href_value)
                 # Append it to List2', Now split it
 except Exception as e:
@@ -652,7 +652,7 @@ Headers4 = {
     "Origin": "https://hashes.com",
     "referer": f"{URL12}",
     "Cookie": f"csrf_cookie={csrf_token2}, user=",
-    "--data-binary": f"csrf_token={csrf_token2}&hashes={hash_itself}&captchaIdentifier=&captcha=&submitted=true"
+    "--data-binary": f"csrf_token={csrf_token2}&hashes={hash_itself}&captchaIdentifier=q8ec2b75b972f1305480df03045ebd4c&captcha=VfLEzS&submitted=true"
 }
 
 if hash_type == "md5" or hash_type == "sha256":
@@ -822,4 +822,22 @@ if hash_type == "md5":
         except Exception as e:
             ErrorMessage15()
 
-# STOP HERE
+
+# -------  URL NUMBER SevenTeen -------
+ # ------- MAKE MANUAL ERROR -------
+if hash_type == "md5":
+    def ErrorMessage16():
+        print(f"[-]ttmd5: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
+
+URL = f"http://www.ttmd5.com/do.php?c=Decode&m=getMD5&md5={hash_itself}"
+headers17 = {
+    "User-Agent": he
+}
+
+# Make the request, Pull the results
+ttmd5_req = requests.get(URL)
+gets_results = ttmd5_req.text.split("plain")[1].split(":")[1].split("type")[0].split(",")[0]
+if "*" in gets_results:
+    print(f"Reminder: [-] You have to {Red}register{Normal}- > ttmd5.com to see the results!")
+else:
+    print(f'[+]Decrypted Hash {Red}[ttmd5]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":{gets_results}{Normal} [[ #H#A#S#H# ]]')
