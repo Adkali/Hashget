@@ -12,6 +12,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 import ssl
+import urllib3
+from urllib3.exceptions import InsecureRequestWarning
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.poolmanager import PoolManager
 from requests.packages.urllib3.util.ssl_ import create_urllib3_context
@@ -29,6 +31,13 @@ from requests.packages.urllib3.util.ssl_ import create_urllib3_context
 # GitHub Repository: https://github.com/Adkali/Hashget
 # Want to take a part helping in maintaining it? Contact Me!
 
+
+http = PoolManager(
+    cert_reqs='CERT_NONE',    # Turn off certificate verification
+    assert_hostname=False     # Do not verify the SSL certificate's hostname
+)
+
+urllib3.disable_warnings(InsecureRequestWarning) # Turns off warnings
 
 # Define colors to be using
 # When code runs and output results or error
@@ -52,7 +61,8 @@ def BannerShow():
     | | |___| | {BM}A{Normal}
     \ | |____\| L
      \|_________I 
-      {Green}Hashget{Normal} v1.2\n''')
+      {Green}Hashget{Normal} v1.2\n{Green}Github{Normal} v1.2\n''')
+    
 
 BannerShow()
 
@@ -430,7 +440,7 @@ Headers = {"User-Agent:": "Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/201001
            "Content-Length": "1995",
            "Origin": "https://www.cmd5.org",
            "Referer:": "https://www.cmd5.org/default.aspx",
-           "--data-binary": f"__EVENTTARGET=Button1&__EVENTARGUMENT=&__VIEWSTATE=d51CtXEQp5Z7fG8GzCoHrIOtUp%2BFw9ouqpJwe%2BztSK3JfyfcrWVBkmZNtsNPTG%2BR1R%2BlSqP0EEWquG2pPM3NAAL4L%2FRsFOZVNpG44cP5cRkpso%2FGb0%2F%2FJHRZIjuiRaeEoFT2ke6JoCv424NC7XMVXZdpf%2F0otfpcixAWiv%2B5itLLSJMI0Xtm1%2FhvSt88yC04QfP39w%2BlRBxrxKznPdx17nVgAYSE6xT6hEm%2F0znc659wSncsfvYUVnjQdIONsM6dMbHRAoytk30cXdrA8hOodv9Fq4E6zDLK13jN%2BRaDE7xf%2B9%2BT%2FlOS4XpIdEvyVcfu374ZZfTawU0UHbvpJkRs%2BualnJ22nTzLJjnX4kuX3FoGAvKMgSdYm1oAUlRuiSSDwiz4K%2FCicq2M0BtI4EIuk5HyY1YF7wjiIyaiSUxi009oUQz8FwbeBswxgANgAgOv%2BgKjpe80VH3knQQUKAQC6gcCWpP77ElAvteydqcf%2BCtkJhpbii5e%2BVxldRClN8eCBRcwsRZCXIdRUqNkJantdGaR2WgYkEeduxGDCp1Nduap%2B%2BeOC%2FaEhkUYXXoh84q7x9kAi4TyQyg0XVMjnQNXqyqxE%2BuUyv9Itx%2F7kwNgWai%2FcsTJqbAwVvDgnG8sRD0RN6FYJVyMYp6tps63d9dS7EAEyowLmQuoB2XCXc%2FglQE6p5c0swPJoDfu%2FXFttf3QNf7Vx3w6MOW%2BsdTxz08KVJ%2FPdGxJexZh51bfWW%2FjjeY544u0YFTtgBLcNTpSJUa3sA18iBV6Q5TzirJ5uWRQBz6HWxk%2Fr4TrtrQfVZQ4svB62zn7MTSUcQDFJlXc76%2FiSzPB1Nrv9atL%2FFx9gUe%2Fq%2B9IuN2iaOvUsVRG1uF%2BNzI0k%2BuLeyATiCwbyCWkO%2BaewCNMItkJR67kvZz8Wn133SRp9F5pRrtJ4kFXyFBLRSZYuQ05TzJr4fQ4L%2FNzqf9qbLN0bQWHdoMw3yJ9gtF3uMPTUQa%2F%2BLF7XXxkuXXhuYQn3fAubKlomWcJ2hE%2F6h3zzA8K96xf4hMK9BFBq4Kmlj75tOMPGOsVWLDShbdZfOD2nB5mpjYqnB1QyE0Ey0lKcYap4ItMxkNvKBCOzbdd2nAIXfOiOGr0BA%2Fq5NM8eFYphk%2FcU%2Bz1vUpMO%2FKRCjBukXLCn59fYwOv26GAqesp94Zavf3waBLTHjv3bs6eNvFoYQatmA8Uxxi8dwaomXwc5nmAVWfr9V2%2FI%2B2EmchgYJnHT2Kfc84wIxSY7o28wjh6%2BX2Xje1NRaJovExoVacj52Jes%2BSyeujCd9K1ThmplxfUwNpzXEdQHVEAT%2FCkZxYeE6OvNNefH95OCxoiURy%2FAwzU9ScKoF0I64yCJc7eEsITktDsSa%2F1Z90fBLjGa3QOxrg5LoXhzQWjOweDV1Rq465PGKfu0Jkki9UXz3I4KdpAWLmusuCJ%2Fic9fA%3D%3D&__VIEWSTATEGENERATOR=CA0B0334&ctl00%24ContentPlaceHolder1%24TextBoxInput={hash_itself}&ctl00%24ContentPlaceHolder1%24InputHashType={hash_type}%28{hash_type}%28%24pass%29%29&ctl00%24ContentPlaceHolder1%24Button1=decrypt&ctl00%24ContentPlaceHolder1%24HiddenField1=&ctl00%24ContentPlaceHolder1%24HiddenField2=qz08XOD6pv6f52Ly0KvrN4x2r%2FZuMyKZH%2Br0xseI3KPMs2qsvRylYS67QXhX3JxR' https://www.cmd5.org/default.aspx/ | grep LabelAnswer"
+           "--data-binary": f"__EVENTTARGET=&__EVENTARGUMENT=&__VIEWSTATE=48RqcxFUJf7FmocIwER7FW46ifSXYRCYKlIZ74sEWj3PLOqpZlGUkMrp3ZVsCR%2FcnHCWaqb2wabPWBWVN7BFHuWZmooy15NIbo8FxKp1gjHHxnCDHR%2BR0DEkn%2FrXyFRhDVxeS0iNpzWyLBrRuwsqszT6qMMCBbCLYZ8a2bu%2BvQPk32JkJHtnau%2FbYcjN9NxitVi%2FWzyRslDHJQWmD%2B6vZQ9%2FDYTyoOm3rofL9Sv5f033vPPhfYo%2BMvR7yR9%2BZRblQGk8nYKKcWyZgvqTq4BEkQO%2BWN%2BuazRBK47kbTUbJgwRgmpnJ7XxW4SBKUtlx%2BdPoMsJVwUGCekXitgtPxPsJDI6jS3AKSiHj3M6i9EpP9EtLTUw4HWS5VMtj8KZ4mRmDudoDlI1%2Bkpk9y4lYYcMeJX2kwT3kNZQJp06HsudzQNa7SSlTM5TKEVPKFrFIrEDY6gtiNGyB45b%2B7Kg8uLd7qYR9MhX1UJpeYwnwSKe6806%2B00ZRzf0PZAyA4hBxFo66NRNsCoBL%2BCyBOggzIO7wZP8rxTOpdp%2BlddG7EqZd58bBA8IGFb8riePqUyf8H23Pv%2FlzFp%2BQIWSn%2B7HlweUQqgqWtOwC86xaCmUHoX%2BpM5UpQ4JMPhJdDvFZJoG%2Fcup8qjFvaFZwy3sOr%2BlLr5h6yTk3n8%2BTRVIR8wm7n8rGCqR8Hzjx9ocsfoZWylZnLHeBMX4k98Hv4MVnjM744f%2F5yqIxwV14m6BojGa4%2Fta7Z7V4THsARbgJs0VSsrAlR7Rtz9H5lgKSxiXo6nWa2cOdNQ%2FfKCQNjLdHoZwSv8pSzGZoFBh9dJw%2BMLD3QkEnQal1eoG3R73NUiuaYewc%2F1wwlN5sWJ6AHmeemtpdxEK%2FI7FGNPHvdlL8fuldnyXXfujMrI64r6y6cnw4UX9Vy03zMDDU8OaxUoTYKuOUPvNT7EmsyNqbxUQpYMcPSPnAVZG5yC42ZInVbBAxpKWik%2FxGr6XounpB%2FMMjsmBtectd2TmJjp1ZMJofazYvKL1OYYKIjmHIIluGmxKmYzXS8ofbLhX22W4XZuxEVq4PW1gPtTpXhApS5%2BykkjDLfHyXANiaN5kLtM%2FOApDuExxNqEkpKVQANvtTTO6LTqptKbGeQLhtEhxzR6D4eXAFyzlwSnmhxshkoURo7RQ4CHqZkazldpOzwTFsp%2BFwNJ6LKMniuFTaJO5NcMHBWw%2FSIadp%2Bow1s1yadUpPABiDCz%2BS9itKU1dkbWZ%2FBUDUUqvxxaDz%2B54PidT5eTwudL6pmQdZhYOlyC%2BbcaDQKmTuvvcT1JQFIoeIUQLx%2BXaKTm3QK6H%2FiMluFz%2BCCvnRQNwy8dDKyp6%2B7P9y5OhIwIKumAI6jibGrWbtBSAxkhbVseF6dxMiEkWUOJgZZORT1EJ%2BeWbrxqnMdAVQQ1HWsZbyWHNx0Hxnl04saKlg09aJFAd3uJr0xErj5E%2BiPkLv0E2YBdyXb9Now6%2F%2FdpOATajtIvqEPWK8%2F3TownmY85Weik2WWcxIqw1FM1vawSS6%2BYnzeTS5dp95txuJ%2Bp3c3mlmWll2Kw3AyCs7gpO7A9STrUJgfZJGvcfyCWF7gLKEnQCCZFAMAwUsRltJ55bG3yCecLlNapaJt43YLQDcAsac%2FXrgJc8b59W9ePYEheW%2FDOTR18GPdiDf2I3UCZ%2BkLbA1OUmwBv97Rxcay0jf%2FwlEApzzAKUNLamPW6mV13dlnY2qy7DyvPoQ%2F35RIeAW7YlK4exSisk3Z8yYbdVF8MZtw%2BDgJc3pMaJKhrf&__VIEWSTATEGENERATOR=CA0B0334&ctl00%24ContentPlaceHolder1%24TextBoxInput=4297f44b13955235245b2497399d7a93&ctl00%24ContentPlaceHolder1%24InputHashType=md5&ctl00%24ContentPlaceHolder1%24TextBoxCode=3519&ctl00%24ContentPlaceHolder1%24Button1=decrypt&ctl00%24ContentPlaceHolder1%24HiddenField1=&ctl00%24ContentPlaceHolder1%24HiddenField2=QejRRodl%2Fso%2Fwcqlz8BYXZwdpkCW19D3zpNA0ZV7VKtYAEACqlPpXsWKibQr53cA' https://www.cmd5.org/default.aspx/ | grep LabelAnswer"
            }
 
 command = f"curl -i -s -k -X 'POST' -H 'User-Agent: {Headers['User-Agent:']}' -H 'Accept: {Headers['Accept:']}' -H 'Accept-Language: {Headers['Accept-Language:']}' -H 'Accept-Encoding: {Headers['Accept-Encoding:']}' -H 'Content-Type: {Headers['Content-Type:']}' -H 'Content-Length: {Headers['Content-Length']}' -H 'Origin: {Headers['Origin']}' -H 'Referer: {Headers['Referer:']}' --data-binary '{Headers['--data-binary']}"
@@ -466,6 +476,7 @@ with open("cmd5.txt", "r") as LabelAnswer:
 
     except IndexError:
         ErrorMessage8()
+subprocess.Popen("anonsurf stop {0} >/dev/null 2>&1 &", shell=True)
 # ------- CONTINUE TO URL NUMBER 9 -------
  # ------- MAKE MANUAL ERROR -------
 def ErrorMessage9():
@@ -591,49 +602,53 @@ if hash_type == "md5":
 # -------  URL NUMBER ELEVEN -------
  # ------- MAKE MANUAL ERROR -------
 
+
+# Suppress the InsecureRequestWarning when making unverified HTTPS requests
+# This is useful in development environments but should be used with caution
+urllib3.disable_warnings(InsecureRequestWarning)
+
 def ErrorMessage12():
+    # Function to display an error message when a hash is not found in the database
     print(f"[-]MD5ONLINE-: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
 
-# -------  URL NUMBER ELEVEN -------
-
-# Custom HTTPS Adapter that uses a lower security SSL context
-# creating a custom class
+# Define a custom HTTPS Adapter to manage SSL/TLS settings
 class DESAdapter(HTTPAdapter):
-    # function for defining inside the DESAdapter.
-    def init_poolmanager(self, connections, maxsize, block=False, **pool_kwargs):
-        # allow for the usage of weaker ciphers with smaller DH keys.
+    def __init_poolmanager(self, connections, maxsize, block=False, **pool_kwargs):
+        # Create an SSL context with custom settings, allowing for weaker ciphers (SECLEVEL=1)
         context = create_urllib3_context(ciphers='DEFAULT:@SECLEVEL=1')
-        # Here we're setting up a "pool". Think of it like setting up multiple phone lines
-        # so we can talk to multiple websites at the same time.
-        # We're just setting how many lines, their size, etc., and telling it to use our secure settings from above.
+        # Initialize the pool manager with the custom SSL context and other connection parameters
         self.poolmanager = PoolManager(
             num_pools=connections,
-            maxsize=maxsize,            # This is the maximum size or capacity of each line.
-            block=block,                # This decides if we wait when all lines are busy or just hang up.
-            ssl_version=ssl.PROTOCOL_TLS,  # This is like picking a language version for secure talk.
-            ssl_context=context            # These are the secure settings above.
+            maxsize=maxsize,
+            block=block,
+            ssl_version=ssl.PROTOCOL_TLS,  # Uses the most secure version of TLS available
+            ssl_context=context            # Apply the custom SSL context
         )
 
+# Check if the hash type is MD5 before proceeding
 if hash_type == "md5":
     s = requests.Session()
+    # Mount the custom DESAdapter to handle all HTTPS requests
     s.mount("https://", DESAdapter())
 
     try:
+        # Attempt to retrieve the hash from the specified URL without verifying SSL certificates
         hash_to_get = s.get(f"https://md5online.it/index.lm?key_decript={hash_itself}", verify=False)
         if hash_to_get.status_code == 200:
+            # Parse the HTML content using BeautifulSoup if the request is successful
             soup = BeautifulSoup(hash_to_get.text, "html.parser")
-            if not "NESSUN RISULTATO" in soup.text:
+            # Check if the hash was successfully decrypted
+            if "NESSUN RISULTATO" not in soup.text:
+                # Extract and clean the decrypted hash from the page content
                 Gotcha_ya = soup.text.split(f"{hash_itself}")[1].strip().split("\n")[0].strip().split('")')[1]
                 print(
                     f'[+]Decrypted Hash {Red}[MD5ONLINE[IT]]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{Gotcha_ya}"{Normal} [[ #H#A#S#H# ]]\n')
     except requests.exceptions.SSLError as e:
-        print(f"[!] SSL Error on MD5ONLINE[IT], continue...\n")
-        # If you want to exit the program after an error, uncomment the next line:
-        # exit(1)
+        # Handle SSL errors specifically and continue execution
+        print("[!] SSL Error on MD5ONLINE[IT], continue...\n")
     except requests.exceptions.RequestException as e:
-        print(f"[!] SSL Error on MD5ONLINE[IT], continue...\n")
-        # If you want to exit the program after an error, uncomment the next line:
-        # exit(1)
+        # Handle general request exceptions
+        print(f"[!] Request Exception: {str(e)}\n")
 
 
 # -------  URL NUMBER Twelve -------
@@ -721,7 +736,7 @@ headers = {
     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
     }
 
-    # For this, i will use chromedriver with selenium
+# For this, i will use chromedriver with selenium
 def is_chromedriver_in_directory():
     try:
         result = os.popen("which chromedriver").read().strip()
@@ -823,21 +838,21 @@ if hash_type == "md5":
             ErrorMessage15()
 
 
-# -------  URL NUMBER SevenTeen -------
- # ------- MAKE MANUAL ERROR -------
-if hash_type == "md5":
-    def ErrorMessage16():
-        print(f"[-]ttmd5: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
+# # -------  URL NUMBER SevenTeen -------
+#  # ------- MAKE MANUAL ERROR -------
+# if hash_type == "md5":
+#     def ErrorMessage16():
+#         print(f"[-]ttmd5: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
 
-URL = f"http://www.ttmd5.com/do.php?c=Decode&m=getMD5&md5={hash_itself}"
-headers17 = {
-    "User-Agent": he
-}
+# URL = f"http://www.ttmd5.com/do.php?c=Decode&m=getMD5&md5={hash_itself}"
+# headers17 = {
+#     "User-Agent": he
+# }
 
-# Make the request, Pull the results
-ttmd5_req = requests.get(URL)
-gets_results = ttmd5_req.text.split("plain")[1].split(":")[1].split("type")[0].split(",")[0]
-if "*" in gets_results:
-    print(f"Reminder: [-] You have to {Red}register{Normal}- > ttmd5.com to see the results!")
-else:
-    print(f'[+]Decrypted Hash {Red}[ttmd5]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":{gets_results}{Normal} [[ #H#A#S#H# ]]')
+# # Make the request, Pull the results
+# ttmd5_req = requests.get(URL)
+# gets_results = ttmd5_req.text.split("plain")[1].split(":")[1].split("type")[0].split(",")[0]
+# if "*" in gets_results:
+#     print(f"Reminder:\n[-] You have to {Red}register{Normal}- > ttmd5.com to see the results!")
+# else:
+#     print(f'[+]Decrypted Hash {Red}[ttmd5]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":{gets_results}{Normal} [[ #H#A#S#H# ]]')
