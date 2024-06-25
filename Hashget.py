@@ -62,7 +62,7 @@ def BannerShow():
     \ | |____\| L
      \|_________I 
       {Green}Hashget{Normal} v1.2\n{Green}Github{Normal} v1.2\n''')
-    
+
 
 BannerShow()
 
@@ -73,22 +73,42 @@ def Parserr(err):
     print("Having problems? let me know!")
     exit()
 
+class Parserr(argparse.ArgumentParser):
+    def error(self, message):
+        raise Exception(message)
 
 # ---------- ARGS TO BE DEFINED AND GETTING INTERACT WITH USING THE CODE'S FLAGS ----------
 
 parser = argparse.ArgumentParser(description="Hash decrypt using scrapping source.")
 parser.error = Parserr
 parser.add_argument('-t', '-type', type=str, required=True, help='Hash type, for example sha1, md5, sha256, etc.')
-parser.add_argument('-ha', '-hashit', type=str, required=True, help='Hash itself to decrypt.')
+parser.add_argument('-ha', '-hashit', type=str, required=False, help='Hash itself to decrypt.')
+parser.add_argument('-hf', '-hashfile', type=str, required=False, help='Hash itself to decrypt from a file.txt')
 parser.add_argument('-p', '-proxy', type=str, required=False, help="Use proxy when sending request.")
 parser.add_argument('-b', '-base64', type=str, required=False, help="use it for Base64 decoding.")
 args = parser.parse_args()
 
 # ------- Operators & Values Usage -------
+
+# Function to read the content of a file
+def file_toread(filename):
+    with open(filename, 'r') as file:
+        return file.read().strip()
+
+# Get the arguments
 b64 = args.b
 hash_itself = args.ha
 hash_type = args.t
 pro = args.p
+hashfile = args.hf
+
+# Check if the hash itself is not provided, read from the file
+if not hash_itself and hashfile:
+    hash_itself = file_toread(hashfile)
+
+# Handle the case where neither hash itself nor hash file is provided
+if not hash_itself:
+    parser.error("You must provide either a hash or a hash file.")
 
 # ------- CHECK HASH LENGTH AND COMPARE WITH OTHER HASH -------
 
@@ -110,7 +130,6 @@ if len(hash_itself) != len(md5ex) or hash_type != "md5":
             if len(hash_itself) != len(sha512ex) or hash_type != "sha512":
                 if hash_itself != "base64" and hash_type != "base64":
                     HashesList()
-
 
 # ------- MAKE THE HEADERS FOR THE REQUESTS -------
 
@@ -158,7 +177,7 @@ if b64:
     print(f"Decoded string -> {decoded_string}")
     exit(0)
 
-# ------- URL NUMBER ONE -------
+# ------- URL NUMBER ZERO -------
   # ------- MAKE A MANUAL ERROR -------
 
 def ErrorMessage0():
@@ -166,7 +185,7 @@ def ErrorMessage0():
 
 if hash_type == "md5":
     try:
-        r = requests.get(f"{URL0}").text
+        r = requests.get(f"{URL0}", headers=Headers).text
         if not r or r.isspace() or "0 results" in r or r == "0":
             ErrorMessage0()
         else:
