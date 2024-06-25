@@ -183,7 +183,7 @@ URL6 = "https://md5decrypt.net/en/Sha1/"
 URL7 = "https://md5decrypt.net/en/Sha256/"
 URL8 = "https://cmd5.org/default.aspx/"
 URL9 = "https://sha1.web-max.ca/index.php"
-URL10 = "https://md5.web-max.ca/index.php"
+URL10 = "https://md5.web-max.ca"
 URL11 = "https://www.md5online.it/index.lm?key_decript="
 URL12 = "https://hashes.com/en/decrypt/hash"
 URL13 = "http://md5.my-addr.com/md5_decrypt-md5_cracker_online/md5_decoder_tool.php"
@@ -629,9 +629,9 @@ Headers2 = {
 
 data_to_send = {
     "string": f"{hash_itself}",
-    "key": "13df",
-    "check_code": "5248",
-    "hidden_code": "%011%06e%06d%05%3F",
+    "key": "13fd",
+    "check_code": "6857",
+    "hidden_code": "%25016U%253A%25076R6",
     "decode": "md5+hash+decode"
 }
 
@@ -886,21 +886,15 @@ if hash_type == "md5":
             ErrorMessage15()
 
 
-# # -------  URL NUMBER SevenTeen -------
-#  # ------- MAKE MANUAL ERROR -------
-# if hash_type == "md5":
-#     def ErrorMessage16():
-#         print(f"[-]ttmd5: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
+###############################
 
-# URL = f"http://www.ttmd5.com/do.php?c=Decode&m=getMD5&md5={hash_itself}"
-# headers17 = {
-#     "User-Agent": he
-# }
 
-# # Make the request, Pull the results
-# ttmd5_req = requests.get(URL)
-# gets_results = ttmd5_req.text.split("plain")[1].split(":")[1].split("type")[0].split(",")[0]
-# if "*" in gets_results:
-#     print(f"Reminder:\n[-] You have to {Red}register{Normal}- > ttmd5.com to see the results!")
-# else:
-#     print(f'[+]Decrypted Hash {Red}[ttmd5]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":{gets_results}{Normal} [[ #H#A#S#H# ]]')
+
+
+
+# HAVE A PROBLEM? LET ME KNOW!
+
+
+
+
+################################
