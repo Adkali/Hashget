@@ -2,7 +2,7 @@
 
 https://github.com/Adkali/Hashget/assets/90532971/2cc991f5-1fd7-422b-afee-673b521e634b
 
-![Maintenance Badge](https://img.shields.io/maintenance/yes/2023)
+![Maintenance Badge](https://img.shields.io/maintenance/yes/2024)
 ![Kali Linux Badge](https://img.shields.io/badge/Developed%20on-Kali%20Linux-blueviolet)
 ![Kali Linux Badge](https://img.shields.io/badge/Tested%20On-LINUX-Linux)
 
