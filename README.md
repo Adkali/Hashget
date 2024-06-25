@@ -17,22 +17,26 @@ https://github.com/Adkali/Hashget/assets/90532971/2cc991f5-1fd7-422b-afee-673b52
   
 ## Usage
 <pre>
-|  _____  |A
-| |\ ___| | D
-| | |   | | K
-| | |___| | A
-\ | |____\| L
- \|_________I 
-  Hashget v1.2
-</pre>
+    |  _____  |A
+    | |\ ___| | D
+    | | |   | | K
+    | | |___| | A
+    \ | |____\| L
+     \|_________I 
+      Hashget v1.2
+Github v1.2
 
+usage: Hashget.py [-h] -t T [-ha HA] [-hf HF] [-p P] [-b B]
 
-Use the `-t` argument to specify the hash type and the `-ha` argument to provide the hash:
-<pre>
-  -h, --help          Show this help message and exit
-  -t T, -type T       Specify the hash type (e.g., sha1, md5, sha256, etc.)
-  -ha HA, -hashit HA  Provide the hash to decrypt
-  -p P, -proxy P      Send request using a proxy
+Hash decrypt using scrapping source.
+
+options:
+  -h, --help            show this help message and exit
+  -t T, -type T         Hash type, for example sha1, md5, sha256, etc.
+  -ha HA, -hashit HA    Hash itself to decrypt.
+  -hf HF, -hashfile HF  Hash itself to decrypt from a file.txt
+  -p P, -proxy P        Use proxy when sending request.
+  -b B, -base64 B       Use it for Base64 decoding.
 </pre>
 
 #### Examples ####
