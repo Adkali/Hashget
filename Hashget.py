@@ -67,69 +67,95 @@ def BannerShow():
 BannerShow()
 
 # Error message to be presented
+import argparse
+
+# Custom error message handler
 def Parserr(err):
     print("[!] Syntax Error!")
-    print("Usage: python3 [ Script/Name ] -t [Hash type(md5/sha1/sha256/sha512] -h [hash]")
-    print("Having problems? let me know!")
+    print("Usage: python3 [ Script/Name ] -t [Hash type(md5/sha1/sha256/sha512)] -ha [hash] -hf [hash file]")
+    print("Having problems? Let me know!")
     exit()
 
-class Parserr(argparse.ArgumentParser):
-    def error(self, message):
-        raise Exception(message)
+# Function to read the content of a file
+def file_toread(filename):
+    try:
+        with open(filename, 'r') as file:
+            return file.read().strip()
+    except Exception as e:
+        print(f"Error reading file {filename}: {e}")
 
-# ---------- ARGS TO BE DEFINED AND GETTING INTERACT WITH USING THE CODE'S FLAGS ----------
+def HashesList():
+    print("What happened? use the right HASH please.")
+    print(f"{Yellow}use Hashget.py -h for syntax!{Normal}")
+    print("Supported hashes(lowercase):")
+    print("md5, sha1, sha256, sha512.")
+    print("Soon more will come! Try again please.")
+    exit()
 
+    
+# Set up initial argument parser
 parser = argparse.ArgumentParser(description="Hash decrypt using scrapping source.")
 parser.error = Parserr
 parser.add_argument('-t', '-type', type=str, required=True, help='Hash type, for example sha1, md5, sha256, etc.')
 parser.add_argument('-ha', '-hashit', type=str, required=False, help='Hash itself to decrypt.')
 parser.add_argument('-hf', '-hashfile', type=str, required=False, help='Hash itself to decrypt from a file.txt')
 parser.add_argument('-p', '-proxy', type=str, required=False, help="Use proxy when sending request.")
-parser.add_argument('-b', '-base64', type=str, required=False, help="use it for Base64 decoding.")
+parser.add_argument('-b', '-base64', type=str, required=False, help="Use it for Base64 decoding.")
 args = parser.parse_args()
 
-# ------- Operators & Values Usage -------
+# Check if the hash itself is not provided, read from the file
+if not args.ha and args.hf:
+    hash_itself = file_toread(args.hf)
+else:
+    hash_itself = args.ha
 
-# Function to read the content of a file
-def file_toread(filename):
-    with open(filename, 'r') as file:
-        return file.read().strip()
+# Enforce requirement for --hashit if --hashfile is not provided
+if not hash_itself:
+    parser.error("You must provide either a hash with --hashit or a hash file with --hashfile.")
 
-# Get the arguments
+# Get the other arguments
 b64 = args.b
-hash_itself = args.ha
 hash_type = args.t
 pro = args.p
-hashfile = args.hf
 
-# Check if the hash itself is not provided, read from the file
-if not hash_itself and hashfile:
-    hash_itself = file_toread(hashfile)
+# Example hashes for comparison
+md5ex = '202cb962ac59075b964b07152d234b70'
+sha1ex = '40bd001563085fc35165329ea1ff5c5ecbdbbeef'
+sha256ex = 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'
+sha512ex = '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2'
 
-# Handle the case where neither hash itself nor hash file is provided
-if not hash_itself:
-    parser.error("You must provide either a hash or a hash file.")
+# Check the hash length and type
+if hash_itself is not None:
+    if (len(hash_itself) == len(md5ex) and hash_type == "md5") or \
+       (len(hash_itself) == len(sha1ex) and hash_type == "sha1") or \
+       (len(hash_itself) == len(sha256ex) and hash_type == "sha256") or \
+       (len(hash_itself) == len(sha512ex) and hash_type == "sha512") or \
+       (hash_itself == "base64" and hash_type == "base64"):
+        print(f"Valid Hash: {hash_itself}")
+        if args.b:
+            print(f"base 64 string to decode: {b64}")
+    else:
+        HashesList()
+else:
+    parser.error("Hash value is None. Ensure that the hash or hash file is provided correctly.")
+
 
 # ------- CHECK HASH LENGTH AND COMPARE WITH OTHER HASH -------
-
-def HashesList():
-    print("What happened? use the right HASH please.")
-    print("Supported hashes(lowercase):")
-    print("md5, sha1, sha256, sha512.")
-    print("Soon more will come! Try again please.")
-    exit()
 
 md5ex = '202cb962ac59075b964b07152d234b70'
 sha1ex = '40bd001563085fc35165329ea1ff5c5ecbdbbeef'
 sha256ex = 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'
 sha512ex = '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2'
 
-if len(hash_itself) != len(md5ex) or hash_type != "md5":
-    if len(hash_itself) != len(sha1ex) or hash_type != "sha1":
-        if len(hash_itself) != len(sha256ex) or hash_type != "sha256":
-            if len(hash_itself) != len(sha512ex) or hash_type != "sha512":
-                if hash_itself != "base64" and hash_type != "base64":
-                    HashesList()
+if hash_itself is not None:
+    if len(hash_itself) != len(md5ex) or hash_type != "md5":
+        if len(hash_itself) != len(sha1ex) or hash_type != "sha1":
+            if len(hash_itself) != len(sha256ex) or hash_type != "sha256":
+                if len(hash_itself) != len(sha512ex) or hash_type != "sha512":
+                    if hash_itself != "base64" and hash_type != "base64":
+                        HashesList()
+else:
+    parser.error("Hash value is None. Ensure that the hash or hash file is provided correctly.")
 
 # ------- MAKE THE HEADERS FOR THE REQUESTS -------
 
@@ -247,26 +273,27 @@ def ErrorMessage3():
     print(f"[-]Md5.GromWeb: {Green}{args.ha}{Normal} -- > Hash does not exist in database.\n")
 
 # ------- APPEND TO LIST2 [CLASS TAGS]
-List2 = []
-r = requests.get(URL3, headers=Headers)
-try:
-    if r.status_code == 200:
-        md5soup = BeautifulSoup(r.content, "html.parser")
-        md5split = md5soup.findAll("a", {"class": "String"})
-        for i in md5split:
-            href_value = i['href']
-            if "string" in href_value and not "no reverse string was found" in md5soup.findAll("p"):
-                List2.append(href_value)
-                # Append it to List2', Now split it
-except Exception as e:
-    print(ErrorMessage3())
+if hash_type == "md5":
+    List2 = []
+    r = requests.get(URL3, headers=Headers)
+    try:
+        if r.status_code == 200:
+            md5soup = BeautifulSoup(r.content, "html.parser")
+            md5split = md5soup.findAll("a", {"class": "String"})
+            for i in md5split:
+                href_value = i['href']
+                if "string" in href_value and not "no reverse string was found" in md5soup.findAll("p"):
+                    List2.append(href_value)
+                    # Append it to List2', Now split it
+    except Exception as e:
+        print(ErrorMessage3())
 
-# Results
-try:
-    print(f'[+]Decrypted Hash {Red}[MD5.GromWeb]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{List2[0].split("=")[1]}"{Normal} [[ #H#A#S#H# ]]\n')
+    # Results
+    try:
+        print(f'[+]Decrypted Hash {Red}[MD5.GromWeb]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{List2[0].split("=")[1]}"{Normal} [[ #H#A#S#H# ]]\n')
 
-except Exception as e:
-    print(ErrorMessage3())
+    except Exception as e:
+        print(ErrorMessage3())
 
 
 # -------  URL NUMBER FOUR -------
@@ -277,26 +304,28 @@ def ErrorMessage4():
 
 List3 = []
 if hash_type == "sha1":
+    List3 = []
     r = requests.get(URL4, headers=Headers)
+    if r.status_code == 200:
+        md5soup2 = BeautifulSoup(r.content, "html.parser")
+        md5split2 = md5soup2.findAll("a", {"class": "String"})
+        for i in md5split2:
+            href_value2 = i['href']
+            if "string" in href_value2 and not "no reverse string was found" in md5soup2.findAll("p"):
+                List3.append(href_value2)
+    # s = List3[0].split("=")
+    # print(s)
     try:
-        if r.status_code == 200:
-            md5soup2 = BeautifulSoup(r.content, "html.parser")
-            for i in md5soup2:
-                md5split2 = md5soup2.findAll("em", {"class": "long-content string"})
-                for i in md5split2:
-                    if 'long-content string' in f"{i}":
-                        List3.append(i)
-    except IndexError:
-        ErrorMessage4()
-    except Exception as e:
-        print(e)
-# ------- FINISH TRY,EXCEPT AND USE [2] FOR RESULTS -------
-    try:
-        for i in List3[2]:
-            print(f'[+]Decrypted Hash {Red}[SHA1.GromWeb]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{i}"{Normal} [[ #H#A#S#H# ]]\n')
+        print(f'[+]Decrypted Hash {Red}[SHA1.GromWeb]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{List3[0].split("=")[1]}"{Normal} [[ #H#A#S#H# ]]\n')
 
-    except IndexError:
-        ErrorMessage4()
+    except Exception as e:
+        print(ErrorMessage3())
+
+
+# ------- FINISH TRY,EXCEPT AND USE [2] FOR RESULTS -------
+    # try:
+    #     for i in List3:
+    #         print(f'[+]Decrypted Hash {Red}[SHA1.GromWeb]:{Normal} [[ #H#A#S#H# ]] {Yellow}"text":"{i}"{Normal} [[ #H#A#S#H# ]]\n')
 
  # ------- MAKE MANUAL ERROR -------
 
